@@ -13,25 +13,5 @@
         {
             require_once('views/riceMm/index_riceSpecies.php');
         }
-        public function ton()
-        {
-            
-        }
-        public function ton2()
-        {
-
-        }
-        public function team()
-        {
-
-        }
-        public function hhhh()
-        {
-            
-        }
-        public function ooo()
-        {
-            
-        }
     }
 ?>
