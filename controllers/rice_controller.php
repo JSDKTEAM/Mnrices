@@ -15,6 +15,10 @@
         }
         public function team()
         {
+
+        }
+        public function team20()
+        {
             
         }
     }
