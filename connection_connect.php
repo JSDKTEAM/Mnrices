@@ -1,7 +1,7 @@
 <?php
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$password = "4321";
 	$database = "rice";
 
 	// Create connection
@@ -14,4 +14,3 @@
 	mysqli_set_charset($conn, "utf8");
 	//echo "Connected successfully";
 ?>
-
