@@ -17,11 +17,19 @@
         {
             
         }
+        public function ton2()
+        {
+
+        }
         public function team()
         {
 
         }
         public function hhhh()
+        {
+            
+        }
+        public function ooo()
         {
             
         }
