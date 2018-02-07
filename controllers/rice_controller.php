@@ -17,5 +17,9 @@
         {
             
         }
+        public function ton2()
+        {
+            
+        }
     }
 ?>
