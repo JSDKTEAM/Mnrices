@@ -15,6 +15,10 @@
         }
         public function ton()
         {
+
+        }
+        public function ton2()
+        {
             
         }
     }
