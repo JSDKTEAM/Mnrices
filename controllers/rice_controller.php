@@ -19,7 +19,11 @@
         }
         public function ton2()
         {
-            
+
+        }
+        public function team()
+        {
+
         }
     }
 ?>
