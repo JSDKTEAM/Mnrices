@@ -13,7 +13,11 @@
         {
             require_once('views/riceMm/index_riceSpecies.php');
         }
-        public function team()
+        public function ton()
+        {
+
+        }
+        public function ton2()
         {
 
         }
