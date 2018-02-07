@@ -13,5 +13,9 @@
         {
             require_once('views/riceMm/index_riceSpecies.php');
         }
+        public function ton()
+        {
+            
+        }
     }
 ?>
