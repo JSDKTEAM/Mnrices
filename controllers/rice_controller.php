@@ -2,7 +2,29 @@
     class RiceController{
         public function index_riceDisease()
         {
+            $diseaseList = Disease::getAll();
             require_once('views/riceMm/index_riceDisease.php');
+        }
+        public function addDisease()
+        {
+            $name = $_REQUEST['name'];
+            $location = $_REQUEST['location'];
+            $symptom = $_REQUEST['symptom'];
+            $dispersed = $_REQUEST['dispersed'];
+            $prevention = $_REQUEST['prevention'];
+            $check = Disease::insert($name,$location,$symptom,$dispersed,$prevention);
+            header('location:index.php?controller=rice&action=index_riceDisease');
+        }
+        public function  updateDisease()
+        {
+            $diseaseID = $_REQUEST['diseaseID'];
+            $name = $_REQUEST['name'];
+            $location = $_REQUEST['location'];
+            $symptom = $_REQUEST['symptom'];
+            $dispersed = $_REQUEST['dispersed'];
+            $prevention = $_REQUEST['prevention'];
+            $check = Disease::update($diseaseID,$name,$location,$symptom,$dispersed,$prevention);
+            header('location:index.php?controller=rice&action=index_riceDisease');
         }
         public function index_ricePathogen()
         {
@@ -31,16 +53,6 @@
         public function index_riceSpecies()
         {
             require_once('views/riceMm/index_riceSpecies.php');
-        }
-        public function addDisease()
-        {
-            $name = $_REQUEST['name'];
-            $location = $_REQUEST['location'];
-            $symptom = $_REQUEST['symptom'];
-            $dispersed = $_REQUEST['dispersed'];
-            $prevention = $_REQUEST['prevention'];
-            $check = Disease::insert($name,$location,$symptom,$dispersed,$prevention);
-            header('location:index.php?controller=rice&action=index_riceDisease');
         }
     }
 ?>
