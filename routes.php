@@ -32,8 +32,8 @@ function call($controller,$action)
 }
 
 if( ($controller=='page'&&($action=='home'||$action=='error'))
-||  ($controller=='rice' && ($action == 'index_riceSpecies' ||  $action == 'index_riceDisease' || $action == 'index_ricePathogen'))
-|| ($controller == 'dep' && ($action  == 'index_dep' || $action == 'addDep' || $action == 'updateDep'))
+||  ($controller=='rice' && ($action == 'index_riceSpecies' ||  $action == 'index_riceDisease' || $action == 'index_ricePathogen' || $action == 'addPathogen' || $action =='updatePathogen'))
+|| ($controller == 'dep' && ($action  == 'index_dep' || $action == 'addDep' || $action == 'updateDep' ))
 || ($controller == 'district' && ($action == 'index_district' || $action == 'updateDistrict'))
 || ($controller == 'subdistrict' && ($action == 'index_subdistrict'))
 ||  ($controller=='user' && ($action == 'index_userMm')))
