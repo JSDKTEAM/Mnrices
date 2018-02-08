@@ -1,3 +1,46 @@
+<style>
+  .character-counter {
+    font-size: 12px;
+    color: #a2a2a2;
+}
+</style>
+<script>
+  $(document).ready(function(){
+    $(".close").click(function(){
+        $(".character-counter").remove();
+    });
+});
+</script>
+<script>
+  $(document).ready(function(){
+    $(".add_p").click(function(){
+      var $counter = $('<div class="character-counter">'),
+            limit = 200;
+ 
+        // Get the textarea field
+        $('.descriptionADD')
+ 
+        // Add the counter after it
+        .after($counter)
+ 
+        // Bind the counter function on keyup and blur events
+        .bind('keyup blur', function () {
+            var length = $(this).val().length;
+ 
+            if (length > limit) {
+                // The value exceeds the limit, contain it
+                $(this).val($(this).val().substring(0, limit));
+            } else {
+                // Set the counter text
+                $counter.text(length + '/' + limit + ' characters');
+            }
+        })
+ 
+        // Trigger the counter on first load
+        .blur();
+    });
+});
+</script>
 <script>
     $(document).ready(function(){
         $('.edit_pathogen').click(function(){
@@ -14,19 +57,43 @@
         $("#type").val(type);
         $("#description").val(description);
         $("#edit_pathogen_modal").modal('show');
+
+        var $counter = $('<div class="character-counter">'),
+            limit = 200;
+ 
+        // Get the textarea field
+        $('.description')
+ 
+        // Add the counter after it
+        .after($counter)
+ 
+        // Bind the counter function on keyup and blur events
+        .bind('keyup blur', function () {
+            var length = $(this).val().length;
+ 
+            if (length > limit) {
+                // The value exceeds the limit, contain it
+                $(this).val($(this).val().substring(0, limit));
+            } else {
+                // Set the counter text
+                $counter.text(length + '/' + limit + ' characters');
+            }
+        })
+ 
+        // Trigger the counter on first load
+        .blur();
         });
     });
 </script>
 <h1 class="page-header">จัดการเชื้อโรคข้าว</h1>
 <!-- Button to Open the Modal -->
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+<button type="button" class="add_p btn btn-success"  data-toggle="modal" data-target="#myModal">
   เพิ่มเชื้อโรคข้าว
 </button>
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog" >
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -39,7 +106,7 @@
             <label>ชื่อสามัญ <input type="text" class="form-control" name="commonName"></label><br/>
             <label>ชื่อวิทยาศาสตร์ <input type="text" class="form-control" name="scientificName"></label><br/>
             <label>ชนิด <input type="text" class="form-control" name="type"></label><br/>
-            <label>รายละเอียด <textarea rows="5" cols="50" class="form-control" name="description"></textarea></label>
+            <label>รายละเอียด <textarea rows="5" cols="50" class="descriptionADD form-control" name="description"></textarea></label>
             <input type="hidden" name="controller" value="rice">
             <hr>
             <button type="submit" name= "action" value="addPathogen" class="btn btn-success btn-block">เพิ่มข้อมูล</button>
@@ -98,7 +165,7 @@
         <label>ชื่อสามัญ <input type="text" id="commonName" class="form-control" name="commonName"></label><br/>
         <label>ชื่อวิทยาศาสตร์ <input type="text" id= "scientificName" class="form-control" name="scientificName"></label><br/>
         <label>ชนิด <input type="text" id= "type" class="form-control" name="type"></label><br/>
-        <label>รายละเอียด <textarea id="description" rows="5" cols="50" class="form-control" name="description"></textarea></label>
+        <label>รายละเอียด <textarea id="description" rows="5" cols="50" class="description form-control" name="description"></textarea></label>
         <input type="hidden" name="controller" value="rice">
         <hr>
           <button type="submit" name="action" value="updatePathogen" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
