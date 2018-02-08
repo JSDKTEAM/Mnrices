@@ -94,7 +94,7 @@
         $sql = "UPDATE species SET
                 commonName = '$commonName',
                 scientificName = '$scientificName',
-                type = '$type'
+                type = '$type',
                 history = '$history',
                 characteristic = '$characteristic',
                 productRate = '$productRate',
