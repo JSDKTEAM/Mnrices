@@ -53,7 +53,7 @@
      public static function insert($name,$location,$symptom,$dispersed,$prevention)
      {
         require('connection_connect.php');
-        $sql = "INSERT INTO disease('name','location',symptom,dispersed,prevention) VALUE('$name','$location','$symptom','$dispersed','$prevention')";
+        $sql = "INSERT INTO disease(name,location,symptom,dispersed,prevention) VALUE('$name','$location','$symptom','$dispersed','$prevention')";
         $result = 0;
         $result = mysqli_query($conn,$sql);
         require('connection_close.php');
