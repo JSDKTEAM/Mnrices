@@ -24,7 +24,7 @@
 					<li><a class="" href="?controller=rice&action=index_ricePathogen">
 						<span class="fa fa-arrow-right">&nbsp;</span> จัดการเชื้อโรคข้าว
 					</a></li>
-					<li><a class="" href="#">
+					<li><a class="" href="?controller=rice&action=index_riceDiseasePathogen">
 						<span class="fa fa-arrow-right">&nbsp;</span> จัดการคู่โรคและเชื้อสาเหตุ
 					</a></li>
 				</ul>
