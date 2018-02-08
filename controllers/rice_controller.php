@@ -13,17 +13,5 @@
         {
             require_once('views/riceMm/index_riceSpecies.php');
         }
-        public function gg()
-        {
-
-        }
-        public function team()
-        {
-            $i = 0;
-        }
-        public function kk()
-        {
-            
-        }
     }
 ?>
