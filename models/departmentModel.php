@@ -55,7 +55,7 @@ class Department{
     }
     public static function delete ($depID)
     { 
-        require_once("connection_connect.php");
+        require("connection_connect.php");
         $sql = "DELETE FROM department WHERE depID = '$depID'";
         $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
         require("connection_close.php");

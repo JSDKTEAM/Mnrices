@@ -41,7 +41,7 @@
         }
         public static function getAllUser()
         {
-            require_once('connection_connect');
+            require('connection_connect');
             $sql ="SELECT * FROM users 
                     LEFT JOIN department ON department.depID = users.depID";
             $result = mysqli_query($conn, $sql);
@@ -67,14 +67,14 @@
                     $depWMLabel  = $row['depWMLabel'];
                     $userList[] = new User($userName,$password,$firstName,$lastname,$phone,$email,$userWMLabel,$statusUser,$request,$dateRegis,$typePhoto,$typeStaff,$typeExpert,$typeDep,$typeAdmin,$depID,$depName,$depWMLabel);
                 }
-                require_once('connection_close');
+                require('connection_close');
                 return userList;
             }
-            require_once('connection_close');
+            require('connection_close');
         }
         public static function addUser($userName,$password,$firstName,$lastname,$phone,$email,$userWMLabel,$depID)        
         {
-            require_once('connection_connect');
+            require('connection_connect');
             $password = mysqli_real_escape_string($con,md5(md5(md5($password))));
             $result = 0;
             $sql = "INSERT INTO users 
@@ -96,7 +96,7 @@
             } else {
                 $result = 0;
             }
-            require_once('connection_close');
+            require('connection_close');
             return $result;
         }
     }

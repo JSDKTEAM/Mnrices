@@ -28,7 +28,7 @@
      }
      public static function getAll()
      {
-         require_once('connection_connect.php');
+        require('connection_connect.php');
          $sql = "SELECT * FROM species";
          $result = mysqli_query($conn,$sql);
          while($row = mysqli_fetch_array($result))
@@ -45,12 +45,12 @@
             $recommendArea = $row['recommendArea'];
             $speciesList[] = new Species($speciesID,$commonName,$scientificName,$scientificName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
          }
-         require_once('connection_close.php');
+         require('connection_close.php');
          return $speciesList;
      }
      public static function get($speciesID)
      {
-        require_once('connection_connect.php');
+        require('connection_connect.php');
         $sql = "SELECT * FROM species WHERE speciesID = $speciesID";
         $result = mysqli_query($conn,$sql);
         if($result)
@@ -67,12 +67,12 @@
             $notice = $row['notice'];
             $recommendArea = $row['recommendArea'];
         }
-        require_once('connection_close.php');
+        require('connection_close.php');
         return new Species($speciesID,$commonName,$scientificName,$scientificName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
      }
      public static function insert($commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
      {
-        require_once('connection_connect.php');
+        require('connection_connect.php');
         $sql = "INSERT INTO species(commonName,
                 scientificName,
                 speciesName,
@@ -85,12 +85,12 @@
                 recommendArea) VALUES('$commonName','$scientificName','$speciesName','$type','$history','$characteristic','$productRate','$feature','$notice','$recommendArea')";
         $result = 0;
         $result = mysqli_query($conn,$sql);
-        require_once('connection_close.php');
+        require('connection_close.php');
         return $result;
      }
      public static function update($speciesID,$commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
      {
-        require_once('connection_connect.php');
+        require('connection_connect.php');
         $sql = "UPDATE species SET
                 commonName = '$commonName',
                 scientificName = '$scientificName',
@@ -103,7 +103,7 @@
                 recommendArea = '$recommendArea' WHERE speciesID = $speciesID";
         $result = 0;
         $result = mysqli_query($conn,$sql);
-        require_once('connection_close.php');
+        require('connection_close.php');
         return $result;
      }
  } 

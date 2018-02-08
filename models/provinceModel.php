@@ -10,7 +10,7 @@
     }
     public static function getAll()
     {
-        require_once('connection_connect.php');
+        require('connection_connect.php');
         $sql = "SELECT * FROM province ORDER BY provinceName";
         $result = mysqli_query($conn,$sql);
         while($row = mysqli_fetch_array($result))
@@ -19,7 +19,7 @@
             $provinceName = $row['provinceName'];
             $provinceList[] = new Province($provinceID,$provinceName);
         }
-        require_once('connection_close.php');
+        require('connection_close.php');
         return $provinceList;
     }
 }

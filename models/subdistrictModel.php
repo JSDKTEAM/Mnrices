@@ -29,9 +29,9 @@ class Subdistrict {
     }
     public static function get($subdistrictID)
     {
-    require("connection_connect.php");
+        require("connection_connect.php");
     $sql = "select * from subdistrict where subdistrictID = '$subdistrictID' ";
-    $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+    $result=mysqli_query($conn,$sql);
     $my_row = mysqli_fetch_array($result);
     $subdistrictID= $my_row['subdistrictID'];
     $subdistrictName = $my_row['subdistrictName'];
@@ -45,7 +45,7 @@ class Subdistrict {
     $sql = "select * from subdistrict 
             left join district on subdistrict.districtID = district.districtID
             left join province on province.provinceID = district.provinceID order by provinceName LIMIT $start,$perpage";
-    $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+    $result=mysqli_query($conn,$sql);
     while($my_row = mysqli_fetch_array($result))
     {
     $subdistrictID= $my_row['subdistrictID'];
@@ -63,19 +63,19 @@ class Subdistrict {
     {
     require("connection_connect.php");
     $sql = "INSERT INTO subdistrict  (subdistrictID,subdistrictName,districtID)VALUES ('','$subdistrictName','$districtID')";
-    $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+    $result=mysqli_query($conn,$sql);
     require("connection_close.php");
     }
     public static function update($subdistrictID,$subdistrictName,$districtID)
     { require("connection_connect.php");
     $sql = "UPDATE subdistrict  SET subdistrictName = '$subdistrictName',districtID = '$districtID' WHERE subdistrictID = '$subdistrictID' ";
-    $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+    $result=mysqli_query($conn,$sql);
     require("connection_close.php");
     }
     public static function delete ($subdistrictID)
-    { require_once("connection_connect.php");
+    { require("connection_connect.php");
     $sql = "DELETE FROM subdistrict  WHERE subdistrictID = '$subdistrictID'";
-    $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+    $result=mysqli_query($conn,$sql);
     require("connection_close.php");
     }
 }
