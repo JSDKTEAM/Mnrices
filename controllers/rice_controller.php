@@ -16,7 +16,7 @@
             $type = $_REQUEST['type'];
             $description = $_REQUEST['description'];
             $check = Pathogen::insert($commonName,$scientificName,$type,$description);
-            RiceController::index_ricePathogen();
+            header('location:index.php?controller=rice&action=index_ricePathogen');
         }
         public function updatePathogen()
         {
@@ -26,7 +26,7 @@
             $type = $_REQUEST['type'];
             $description = $_REQUEST['description'];
             $check = Pathogen::update($pathogenID,$commonName,$scientificName,$type,$description);
-            RiceController::index_ricePathogen();
+            header('location:index.php?controller=rice&action=index_ricePathogen');
         }
         public function index_riceSpecies()
         {
