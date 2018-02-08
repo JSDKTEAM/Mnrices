@@ -19,7 +19,6 @@
             require('connection_connect.php');
             $sql = "SELECT * FROM pathogen";
             $result = mysqli_query($conn,$sql);
-            $pathogenList[] = NULL;
             while($row = mysqli_fetch_array($result))
             {
                 $pathogenID = $row['pathogenID'];
@@ -52,7 +51,7 @@
         public static function insert($commonName,$scientificName,$type,$description)
         {
             require('connection_connect.php');
-            $sql = "INSERT INTO pathogen(commonName,scientificName,'type','description') VALUES('$commonName','$scientificName','$type','$description')";
+            $sql = "INSERT INTO pathogen(commonName,scientificName,`type`,`description`) VALUES('$commonName','$scientificName','$type','$description')";
             $result = 0;
             $result = mysqli_query($conn,$sql);
             require('connection_close.php');
@@ -65,8 +64,8 @@
                     SET pathogenID = $pathogenID , 
                     commonName = '$commonName' ,
                     scientificName = '$scientificName' ,
-                    'type' = '$type',
-                    'description' = '$description' 
+                    `type` = '$type',
+                    `description` = '$description' 
                     WHERE pathogenID = $pathogenID";
             $result = 0;
             $result = mysqli_query($conn,$sql);
