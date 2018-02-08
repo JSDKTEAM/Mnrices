@@ -15,6 +15,7 @@
             $check = Disease::insert($name,$location,$symptom,$dispersed,$prevention);
             header('location:index.php?controller=rice&action=index_riceDisease');
         }
+
         public function  updateDisease()
         {
             $diseaseID = $_REQUEST['diseaseID'];
@@ -50,9 +51,17 @@
             $check = Pathogen::update($pathogenID,$commonName,$scientificName,$type,$description);
             header('location:index.php?controller=rice&action=index_ricePathogen');
         }
+
         public function index_riceSpecies()
         {
             require_once('views/riceMm/index_riceSpecies.php');
+        }
+
+        public function index_riceDiseasePathogen()
+        {
+            $disease_list = Disease::getAll();
+            $pathogen_list = Pathogen::getAll();
+            require_once('views/riceMm/index_riceDiseasePathogen.php');
         }
     }
 ?>
