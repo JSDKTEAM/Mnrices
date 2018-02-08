@@ -31,7 +31,6 @@ else
 	<![endif]-->
 	<!-- font -->
 	 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet"> 
-
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/chart.min.js"></script>
