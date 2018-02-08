@@ -32,6 +32,15 @@
         {
             require_once('views/riceMm/index_riceSpecies.php');
         }
-        
+        public function addDisease()
+        {
+            $name = $_REQUEST['name'];
+            $location = $_REQUEST['location'];
+            $symptom = $_REQUEST['symptom'];
+            $dispersed = $_REQUEST['dispersed'];
+            $prevention = $_REQUEST['prevention'];
+            $check = Disease::insert($name,$location,$symptom,$dispersed,$prevention);
+            header('location:index.php?controller=rice&action=index_riceDisease');
+        }
     }
 ?>
