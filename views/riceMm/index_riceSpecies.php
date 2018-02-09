@@ -65,9 +65,15 @@
 
 <h1 class="page-header">จัดการพันธุ์ข้าว</h1>
 <!-- Button to Open the Modal -->
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-  เพิ่มพันธุ์ข้าว
-</button>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"> เพิ่มพันธุ์ข้าว </button>
+
+ <form>
+ <br/>
+<label> ค้นหา <input type="text" class = "form-control"  name="key" id ="key"></label>
+<input type="hidden" name="controller" value="rice">
+        <button type="submit" class="btn btn-success"   name="action" value="search_spec">ค้นหา</button>
+
+</form>
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog" style="width:980px;">
@@ -78,7 +84,6 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h2 class="modal-title">เพิ่มพันธุ์ข้าว</h2>
       </div>
-
       <!-- Modal body -->
       <div class="modal-body">
         <form>
@@ -100,12 +105,16 @@
    	 <input type="hidden" name="controller" value="rice">
         <button type="submit" class="btn btn-success btn-block"  name="action" value="insert">เพิ่มข้อมูล</button>
 	</form>
+
+
+
       </div>
         
     </div>
   </div>
 </div>
 <br/><br/>
+
 <table class="table table-bordered">
   <tr>
     <th>ชื่อสามัญ</th>
@@ -116,6 +125,9 @@
   </tr>
 
     <?php 
+
+if($speciesList != null)
+{
     foreach($speciesList as $species)
     {
 
@@ -155,9 +167,9 @@
                 </td>
             </tr>
 
-  <?php  } ?>
+  <?php  }} ?>
 </table>
-
+<?php  include('views/pagination/pagination.php');?>
 
 <div class="modal fade" id="edit_spec_modal">
   <div class="modal-dialog" style="width:980px;">
