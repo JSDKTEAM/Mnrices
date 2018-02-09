@@ -37,9 +37,10 @@
      {
         require('connection_connect.php');
         $sql = "SELECT * FROM disease WHERE diseaseID = $diseaseID";
-        $result - mysqli_query($conn,$sql);
+        $result = mysqli_query($conn,$sql);
         if($result)
         {
+            $row = mysqli_fetch_array($result);
             $diseaseID = $row['diseaseID'];
             $name = $row['name'];
             $location = $row['location'];

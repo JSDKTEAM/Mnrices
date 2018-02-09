@@ -12,18 +12,17 @@
         var feature = $(this).attr('data-feature');
         var notice = $(this).attr('data-notice');
         var recommendArea = $(this).attr('data-recommendArea');
-          console.log(type);
         // set value to modal
-        $("#commonName").val(commonName);
-        $("#scientificName").val(scientificName);
-        $("#speciesName").val(speciesName);
-        $("#type").val(type);
-        $("#history").val(history);
-        $("#characteristic").val(characteristic);
-        $("#productRate").val(productRate);
-        $("#feature").val(feature);
-        $("#notice").val(notice);
-        $("#recommendArea").val(recommendArea);
+        document.getElementById("commonName").innerHTML = commonName;
+        document.getElementById("scientificName").innerHTML = scientificName;
+        document.getElementById("speciesName").innerHTML = speciesName;
+        document.getElementById("type").innerHTML = type;
+        document.getElementById("history").innerHTML = history;
+        document.getElementById("characteristic").innerHTML = characteristic;
+        document.getElementById("productRate").innerHTML = productRate;
+        document.getElementById("feature").innerHTML = feature;
+        document.getElementById("notice").innerHTML = notice;
+        document.getElementById("recommendArea").innerHTML = recommendArea; 
         $("#edit_spec_modal").modal('show');
         });
     });
@@ -44,7 +43,7 @@
         var feature2 = $(this).attr('data-feature2');
         var notice2 = $(this).attr('data-notice2');
         var recommendArea2 = $(this).attr('data-recommendArea2');
-          console.log(type);
+        console.log(type);
         // set value to modal
         $("#speciesID2").val(speciesID2);
         $("#commonName2").val(commonName2);
@@ -150,7 +149,7 @@ if($speciesList != null)
                 data-productRate="<?php echo $species->productRate ?>"
                 data-feature="<?php echo $species->feature ?>"
                 data-notice="<?php echo $species->notice ?>"
-                data-recommendArea="<?php echo $species->recommendArea ?>" >เพิ่มเติม</a> 
+                data-recommendArea="<?php echo $species->recommendArea ?>" ><i class="fa fa-eye" aria-hidden="true"></i> ดูเพิ่มเติม</a> 
 
                 <a  class="btn btn-success edit_spec2"
                 data-speciesID2="<?php echo $species->speciesID ?>"
@@ -163,7 +162,7 @@ if($speciesList != null)
                 data-productRate2="<?php echo $species->productRate ?>"
                 data-feature2="<?php echo $species->feature ?>"
                 data-notice2="<?php echo $species->notice ?>"
-                data-recommendArea2="<?php echo $species->recommendArea ?>" >แก้ไข</a> 
+                data-recommendArea2="<?php echo $species->recommendArea ?>" ><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a> 
                 
                 </td>
             </tr>
@@ -184,18 +183,16 @@ if($speciesList != null)
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form >
-        <label>ชื่อสามัญ<input id="commonName" type="text" name="commonName" class="form-control" required disabled ></label>
-            <label>ชื่อวิทยาศาสตร์ <input id="scientificName" type="text" name="scientificName" class="form-control" required disabled></label>
-            <label>ชื่อพันธุ์ <input id="speciesName" type="text" name="speciesName" class="form-control" required disabled></label>
-            <label>ชนิดข้าว <input id="type" type="text" name="type" class="form-control" required disabled></label><br/>
-            <label>ประวัติพันธุ์ข้าว <textarea rows="5" cols="50" class="form-control" id="history" type="text" name="history" required disabled></textarea></label>
-            <label>ลักษณะประจำพันธุ์ <textarea rows="5" cols="50" class="form-control" id="characteristic" type="text" name="characteristic"disabled ></textarea></label>
-            <label>ผลผลิต(กก)/ไร่ <input id="productRate" type="text" name="productRate" class="form-control" required disabled></label><br/>
-            <label>ลักษณะเด่น <textarea rows="5" cols="50" class="form-control" id="feature" type="text" name="feature" required disabled></textarea></label>
-            <label>ข้อควรระวัง <textarea rows="5" cols="50" class="form-control" id="notice" type="text" name="notice" required disabled></textarea></label>
-            <label>พื้นที่แนะนำ <textarea rows="5" cols="110" class="form-control"  id="recommendArea" type="text" name="recommendArea" required disabled></textarea></label>
-        </form>
+        <p>ชื่อสามัญ : <span id="commonName"></span></p>
+        <p>ชื่อวิทยาศาสตร์ : <span id="scientificName"></span></p>
+        <p>ชื่อพันธุ์ : <span id="speciesName"></span></p>
+        <p>ชนิดข้าว : <span id="type"></span></p>
+        <p>ประวัติพันธุ์ข้าว : <span id="history"></span></p>
+        <p>ลักษณะประจำพันธุ์ : <span id="characteristic"></span></p>
+        <p>ผลผลิต(กก)/ไร่ : <span id="productRate"></span></p>
+        <p>ลักษณะเด่น : <span id="feature"></span></p>
+        <p>ข้อควรระวัง : <span id="notice"></span></p>
+        <p>พื้นที่แนะนำ : <span id="recommendArea"></span></p>
       </div>
 
     </div>
