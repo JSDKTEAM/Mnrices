@@ -42,6 +42,7 @@
         }
         public function index_ricePathogen()
         {
+            $total_page=0;
             $pathogen_list = Pathogen::getAll();
             require_once('views/riceMm/index_ricePathogen.php');
         }
@@ -64,7 +65,24 @@
             $check = Pathogen::update($pathogenID,$commonName,$scientificName,$type,$description);
             header('location:index.php?controller=rice&action=index_ricePathogen');
         }
-
+        public function searchPathogen()
+        {
+            
+            $key=$_REQUEST['key'];
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+            $pathogen_list = Pathogen::search($key,$start,$perpage);
+            $total_page = Pathogen::countRow($key);
+            require_once('views/riceMm/index_ricePathogen.php');
+        }
         public function index_riceSpecies()
         {
             $perpage = 10;

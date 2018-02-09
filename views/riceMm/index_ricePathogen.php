@@ -90,6 +90,12 @@
 <button type="button" class="add_p btn btn-success"  data-toggle="modal" data-target="#myModal">
   เพิ่มเชื้อโรคข้าว
 </button>
+<br><br>
+<form method="GET">
+    <label for="">ค้นหา<input type="text" name="key" class="form-control" required></label>
+    <input type="hidden" name="controller" value="rice">
+    <button type="submit" name= "action" value="searchPathogen" class="btn btn-success">ค้นหา</button>
+</form>
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog" >
@@ -125,6 +131,8 @@
     <th></th>
   </tr>
     <?php
+      if($pathogen_list!=null)
+      {
       foreach($pathogen_list as $pathogen)
       {
           echo "<tr>
@@ -144,9 +152,12 @@
           <i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>
         </td>
        </tr>         
-     <?php } ?>
+     <?php 
+      } 
+    }
+   ?>
 </table>
-
+<?php  include('views/pagination/pagination.php');?>
 <!-- The Modal -->
 <div class="modal fade" id="edit_pathogen_modal">
   <div class="modal-dialog">

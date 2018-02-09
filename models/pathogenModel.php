@@ -69,5 +69,42 @@
             require('connection_close.php');
             return $result;
         }
+        public static function countRow($key)
+        {
+            require("connection_connect.php");
+            $sql = "SELECT * FROM pathogen WHERE commonName LIKE '%$key%' OR scientificName LIKE '%$key%' OR type LIKE '%$key%'";
+            $result = mysqli_query($conn,$sql);
+            $total = mysqli_num_rows($result);
+            $total_page = ceil(($total / 10));
+            require("connection_close.php");
+            return $total_page;
+        }
+        public static function search($key,$start,$perpage)
+        {
+            require('connection_connect.php');
+            $sql = "SELECT * FROM pathogen WHERE commonName LIKE '%$key%' OR scientificName LIKE '%$key%' OR type LIKE '%$key%'
+            ORDER BY commonName LIMIT $start,$perpage ";
+            $result = mysqli_query($conn,$sql);
+            if(mysqli_num_rows($result)>0)
+            {
+            while($row = mysqli_fetch_array($result))
+            {
+                $pathogenID = $row['pathogenID'];
+                $commonName = $row['commonName'];
+                $scientificName = $row['scientificName'];
+                $type  = $row['type'];
+                $description = $row['description'];
+                $pathogenList[] = new Pathogen($pathogenID,$commonName,$scientificName,$type,$description);
+            }
+            require('connection_close.php');
+            return $pathogenList;
+            }
+            else
+            {
+                return $pathogenList=null;
+            }
+        
+           
+        }
     } 
 ?>
