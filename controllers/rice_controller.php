@@ -72,14 +72,76 @@
         }
         public function index_riceSpecies()
         {
+            $speciesList = Species::getAll();
             require_once('views/riceMm/index_riceSpecies.php');
         }
+        public function addSpecies()
+        {
+        $commonName = $_REQUEST['commonName'];
+        $scientificName = $_REQUEST['scientificName'];
+        $speciesName = $_REQUEST['speciesName'];
+        $type = $_REQUEST['type'];
+        $history = $_REQUEST['history'];
+        $characteristic = $_REQUEST['characteristic'];
+        $productRate = $_REQUEST['productRate'];
+        $feature = $_REQUEST['feature'];
+        $notice = $_REQUEST['notice'];
+        $recommendArea = $_REQUEST['recommendArea'];
+        $return = Species::insert($commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+	      header('location:index.php?controller=rice&action=index_riceSpecies');
+        }
+        public function updateSpecies()
+        {
+            $speciesID = $_REQUEST['speciesID2'];
+            $commonName = $_REQUEST['commonName2'];
+            $scientificName = $_REQUEST['scientificName2'];
+            $speciesName = $_REQUEST['speciesName2'];
+            $type = $_REQUEST['type2'];
+            $history = $_REQUEST['history2'];
+            $characteristic = $_REQUEST['characteristic2'];
+            $productRate = $_REQUEST['productRate2'];
+            $feature = $_REQUEST['feature2'];
+            $notice = $_REQUEST['notice2'];
+            $recommendArea = $_REQUEST['recommendArea2'];
+            $result = Species::update($speciesID,$commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
 
+            if($result)
+            {
+                header('location:index.php?controller=rice&action=index_riceSpecies');
+            }
+        }
         public function index_riceDiseasePathogen()
         {
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+            $pathogen_list = Pathogen::getAll($start,$perpage);
             $disease_list = Disease::getAll();
             $pathogen_list = Pathogen::getAll();
+            $dp_list = Dp::getAll($start,$perpage);
+            $total_page = Dp::countRow();
             require_once('views/riceMm/index_riceDiseasePathogen.php');
+        }
+        public function addDiseasePathogen()
+        {
+            $diseaseID = $_REQUEST['diseaseID'];
+            $pathogenID = $_REQUEST['pathogenID'];
+            $check = Dp::insert($diseaseID,$pathogenID);
+            header('location:index.php?controller=rice&action=index_riceDiseasePathogen');
+        }
+        public function updateDiseasePathogen()
+        {
+            $diseaseID = $_REQUEST['diseaseID'];
+            $pathogenID = $_REQUEST['pathogenID'];
+            $check = Dp::update($diseaseID,$pathogenID);
+            header('location:index.php?controller=rice&action=index_riceDiseasePathogen');
         }
     }
 ?>

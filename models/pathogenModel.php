@@ -34,19 +34,16 @@
         public static function get($pathogenID)
         {
             require('connection_connect.php');
-            $sql = "SELECT * FROM WHERE pathogenID = $pathogenID";
+            $sql = "SELECT * FROM pathogen WHERE pathogenID = $pathogenID";
             $result = mysqli_query($conn,$sql);
-            while($row = mysqli_fetch_array($result))
-            {
-                $pathogenID = $row['pathogenID'];
-                $commonName = $row['commonName'];
-                $scientificName = $row['scientificName'];
-                $type  = $row['type'];
-                $description = $row['description'];
-                $pathogenList[] = new Pathogen($pathogenID,$commonName,$scientificName,$type,$description);
-            }
+            $row = mysqli_fetch_array($result);
+            $pathogenID = $row['pathogenID'];
+            $commonName = $row['commonName'];
+            $scientificName = $row['scientificName'];
+            $type  = $row['type'];
+            $description = $row['description'];
             require('connection_close.php');
-            return $pathogenList;
+            return new Pathogen($pathogenID,$commonName,$scientificName,$type,$description);;
         }
         public static function insert($commonName,$scientificName,$type,$description)
         {
