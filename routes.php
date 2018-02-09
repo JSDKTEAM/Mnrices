@@ -32,7 +32,7 @@ function call($controller,$action)
 }
 
 if( ($controller=='page'&&($action=='home'||$action=='error'))
-||  ($controller=='rice' && ($action == 'index_riceSpecies'|| $action == 'insert'|| $action == 'update' ||  $action == 'index_riceDisease' || $action == 'index_ricePathogen' || $action == 'addPathogen' || $action =='updatePathogen'||$action=='addDisease'||$action=='updateDisease' || $action == 'index_riceDiseasePathogen'))
+||  ($controller=='rice' && ($action == 'index_riceSpecies'|| $action == 'insert'|| $action == 'update' || $action == 'search_spec'|| $action == 'index_riceDisease' || $action == 'index_ricePathogen' || $action == 'addPathogen' || $action =='updatePathogen'||$action=='addDisease'||$action=='updateDisease' || $action == 'index_riceDiseasePathogen'|| $action == 'search_dis'))
 || ($controller == 'dep' && ($action  == 'index_dep' || $action == 'addDep' || $action == 'updateDep' ))
 || ($controller == 'district' && ($action == 'index_district' || $action == 'updateDistrict'))
 || ($controller == 'subdistrict' && ($action == 'index_subdistrict'))

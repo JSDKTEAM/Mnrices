@@ -2,7 +2,20 @@
     class RiceController{
         public function index_riceDisease()
         {
-            $diseaseList = Disease::getAll();
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+
+            $total_page = Disease::countRowAll();
+
+            $diseaseList = Disease::getAll($start,$perpage);
             require_once('views/riceMm/index_riceDisease.php');
         }
         public function addDisease()
@@ -54,7 +67,21 @@
 
         public function index_riceSpecies()
         {
-            $speciesList = Species::getAll();
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+
+            $total_page = Species::countRowAll();
+
+            $speciesList = Species::getAll($start,$perpage);
+
             require_once('views/riceMm/index_riceSpecies.php');
         }
         public function insert()
@@ -92,6 +119,47 @@
                 header('location:index.php?controller=rice&action=index_riceSpecies');
             }
         }
+
+        public function search_spec()
+        {   
+            
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+
+            $total_page = Species::countRow($_GET['key']);
+
+                $speciesList = Species::search_spec($_GET['key'],$start,$perpage);
+                require_once('views/riceMm/index_riceSpecies.php');     
+        }
+
+        public function search_dis()
+        {   
+            
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+
+            $total_page = Disease::countRow($_GET['key1']);
+
+                $diseaseList = Disease::search_dis($_GET['key1'],$start,$perpage);
+                require_once('views/riceMm/index_riceDisease.php');     
+        }
+
         public function index_riceDiseasePathogen()
         {
             $disease_list = Disease::getAll();

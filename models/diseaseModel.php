@@ -68,5 +68,69 @@
         require('connection_close.php');
         return $result;
      }
+
+     public static function search_dis($key,$start,$perpage)
+     {
+        require('connection_connect.php');
+
+        $sql = "SELECT * FROM disease WHERE diseaseID LIKE '%$key%' 
+        OR name LIKE '%$key%' 
+        OR location LIKE '%$key%'
+        OR symptom LIKE '%$key%'
+        OR dispersed LIKE '%$key%'
+        OR prevention LIKE '%$key%'
+        order by name LIMIT $start,$perpage";
+        
+        $result = mysqli_query($conn,$sql);
+        while($row = mysqli_fetch_array($result))
+        {
+            $diseaseID = $row['diseaseID'];
+            $name = $row['name'];
+            $location = $row['location'];
+            $symptom = $row['symptom'];
+            $dispersed = $row['dispersed'];
+            $prevention = $row['prevention'];
+            $diseaseList[] = new Disease($diseaseID,$name,$location,$symptom,$dispersed,$prevention);
+        }
+        require('connection_close.php');
+
+        if(mysqli_num_rows($result) < 1)
+        {
+            return $diseaseList = null;
+        }
+
+
+            return $diseaseList;
+
+
+     }
+
+     public static function countRow($key)
+     {
+         require("connection_connect.php");
+         $sql = "SELECT * FROM disease WHERE diseaseID LIKE '%$key%' 
+         OR name LIKE '%$key%' 
+         OR location LIKE '%$key%'
+         OR symptom LIKE '%$key%'
+         OR dispersed LIKE '%$key%'
+         OR prevention LIKE '%$key%'";
+         $result = mysqli_query($conn,$sql);
+         $total = mysqli_num_rows($result);
+         $total_page = ceil($total / 10);
+         require("connection_close.php");
+         return $total_page;
+     }
+
+     public static function countRowAll()
+     {
+         require("connection_connect.php");
+         $sql = "SELECT * FROM disease";
+         $result = mysqli_query($conn,$sql);
+         $total = mysqli_num_rows($result);
+         $total_page = ceil($total / 10);
+         require("connection_close.php");
+         return $total_page;
+     }
+
  } 
 ?>
