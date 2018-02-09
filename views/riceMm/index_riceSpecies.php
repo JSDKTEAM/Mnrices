@@ -103,7 +103,7 @@
       <!-- Modal footer -->
       <div class="modal-footer">
    	 <input type="hidden" name="controller" value="rice">
-        <button type="submit" class="btn btn-success btn-block"  name="action" value="insert">เพิ่มข้อมูล</button>
+        <button type="submit" class="btn btn-success btn-block"  name="action" value="addSpecies">เพิ่มข้อมูล</button>
 	</form>
 
 
@@ -227,7 +227,7 @@ if($speciesList != null)
             <label>พื้นที่แนะนำ <textarea rows="5" cols="110" class="form-control"  id="recommendArea2" type="text" name="recommendArea2" required ></textarea></label>
            
             <input type="hidden" name="controller" value="rice">
-          <button type="submit" name="action" value="update" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
+          <button type="submit" name="action" value="updateSpecies" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
        
         </form>
       </div>
