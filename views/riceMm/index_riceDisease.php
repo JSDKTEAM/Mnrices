@@ -63,9 +63,8 @@
     <th>พื้นที่ที่พบ</th>
     <th>ลักษณะอาการ</th>
     <th>การแพร่ระบาด</th>
-    <th>การป้องกัน</th>
-  </tr>
-  <?php
+    <th>การป้องกัน</th>  
+   <?php
             if(isset($diseaseList))
             {
                 foreach($diseaseList as $disease)

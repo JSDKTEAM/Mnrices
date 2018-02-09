@@ -3,6 +3,7 @@
   <nav>
   <ul class ="pagination justify-content-end">
   <li class="page-link">
+
     <a href="?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action']?>&page=1?>" aria-label="Previous">
       <span aria-hidden='true'>&laquo;</span>
     </a>
