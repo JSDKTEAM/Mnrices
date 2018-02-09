@@ -22,9 +22,18 @@
 </script>
 <h1 class="page-header">จัดการโรคข้าว</h1>
 <!-- Button to Open the Modal -->
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-  เพิ่มโรคข้าว
-</button>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">เพิ่มโรคข้าว</button>
+
+ <form>
+ <br/>
+<label> ค้นหา <input type="text" class = "form-control"  name="key1" id ="key1"></label>
+<input type="hidden" name="controller" value="rice">
+        <button type="submit" class="btn btn-success "   name="action" value="search_dis">ค้นหา</button>
+
+</form>
+
+
+
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog" style="width:980px;">
@@ -57,15 +66,18 @@
   </div>
 </div>
 <br/><br/>
+
+
 <table class="table table-bordered">
   <tr>
     <th>ชื่อ</th>
     <th>พื้นที่ที่พบ</th>
     <th>ลักษณะอาการ</th>
     <th>การแพร่ระบาด</th>
-    <th>การป้องกัน</th>  
-   <?php
-            if(isset($diseaseList))
+    <th>การป้องกัน</th>
+  </tr>
+  <?php
+            if($diseaseList != null)
             {
                 foreach($diseaseList as $disease)
                 {
@@ -91,9 +103,11 @@
             <a class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</a>
         </td>
         </tr>
-    <?php     }
+    <?php      }
             } ?>
 </table>
+
+<?php  include('views/pagination/pagination.php');?>
 <!-- The Modal -->
 <div class="modal fade" id="edit_disease_modal">
   <div class="modal-dialog" style="width:980px;">

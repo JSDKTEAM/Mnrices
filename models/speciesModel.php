@@ -26,10 +26,10 @@
          $this->notice = $notice;
          $this->recommendArea = $recommendArea;
      }
-     public static function getAll()
-     {
+     public static function getAll($start,$perpage)
+     { 
         require('connection_connect.php');
-         $sql = "SELECT * FROM species";
+         $sql = "SELECT * FROM species LIMIT $start,$perpage";
          $result = mysqli_query($conn,$sql);
          while($row = mysqli_fetch_array($result))
          {
@@ -106,5 +106,77 @@
         require('connection_close.php');
         return $result;
      }
+     public static function search_spec($key,$start,$perpage)
+     {
+        require('connection_connect.php');
+
+        $sql = "SELECT * FROM species WHERE speciesID LIKE '%$key%' 
+        OR commonName LIKE '%$key%' 
+        OR scientificName LIKE '%$key%'
+        OR type LIKE '%$key%'
+        OR history LIKE '%$key%' 
+        OR characteristic LIKE '%$key%' 
+        OR productRate LIKE '%$key%' 
+        OR feature LIKE '%$key%' 
+        OR notice LIKE '%$key%' 
+        OR recommendArea LIKE '%$key%'
+        order by commonName LIMIT $start,$perpage";
+        
+        $result = mysqli_query($conn,$sql);
+
+        while($row = mysqli_fetch_array($result))
+        {
+           $speciesID = $row['speciesID'];
+           $commonName = $row['commonName'];
+           $scientificName = $row['scientificName'];
+           $type = $row['type'];
+           $history = $row['history'];
+           $characteristic = $row['characteristic'];
+           $productRate = $row['productRate'];
+           $feature = $row['feature'];
+           $notice = $row['notice'];
+           $recommendArea = $row['recommendArea'];
+           $speciesList[] = new Species($speciesID,$commonName,$scientificName,$scientificName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+        }
+        require('connection_close.php');
+
+        if(mysqli_num_rows($result) < 1)
+        {
+            return $speciesList = null;
+        }
+        return $speciesList;
+     }
+
+     public static function countRow($key)
+     {
+         require("connection_connect.php");
+         $sql = "SELECT * FROM species WHERE speciesID LIKE '%$key%' 
+         OR commonName LIKE '%$key%' 
+         OR scientificName LIKE '%$key%'
+         OR type LIKE '%$key%'
+         OR history LIKE '%$key%' 
+         OR characteristic LIKE '%$key%' 
+         OR productRate LIKE '%$key%' 
+         OR feature LIKE '%$key%' 
+         OR notice LIKE '%$key%' 
+         OR recommendArea LIKE '%$key%' ";
+         $result = mysqli_query($conn,$sql);
+         $total = mysqli_num_rows($result);
+         $total_page = ceil($total / 10);
+         require("connection_close.php");
+         return $total_page;
+     }
+
+     public static function countRowAll()
+     {
+         require("connection_connect.php");
+         $sql = "SELECT * FROM species ";
+         $result = mysqli_query($conn,$sql);
+         $total = mysqli_num_rows($result);
+         $total_page = ceil($total / 10);
+         require("connection_close.php");
+         return $total_page;
+     }
+
  } 
 ?>
