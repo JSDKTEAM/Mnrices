@@ -57,7 +57,7 @@
             $speciesList = Species::getAll();
             require_once('views/riceMm/index_riceSpecies.php');
         }
-        public function insert()
+        public function addSpecies()
         {
         $commonName = $_REQUEST['commonName'];
         $scientificName = $_REQUEST['scientificName'];
@@ -72,7 +72,7 @@
         $return = Species::insert($commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
 	      header('location:index.php?controller=rice&action=index_riceSpecies');
         }
-        public function update()
+        public function updateSpecies()
         {
             $speciesID = $_REQUEST['speciesID2'];
             $commonName = $_REQUEST['commonName2'];
@@ -94,9 +94,36 @@
         }
         public function index_riceDiseasePathogen()
         {
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+            $pathogen_list = Pathogen::getAll($start,$perpage);
             $disease_list = Disease::getAll();
             $pathogen_list = Pathogen::getAll();
+            $dp_list = Dp::getAll($start,$perpage);
+            $total_page = Dp::countRow();
             require_once('views/riceMm/index_riceDiseasePathogen.php');
+        }
+        public function addDiseasePathogen()
+        {
+            $diseaseID = $_REQUEST['diseaseID'];
+            $pathogenID = $_REQUEST['pathogenID'];
+            $check = Dp::insert($diseaseID,$pathogenID);
+            header('location:index.php?controller=rice&action=index_riceDiseasePathogen');
+        }
+        public function updateDiseasePathogen()
+        {
+            $diseaseID = $_REQUEST['diseaseID'];
+            $pathogenID = $_REQUEST['pathogenID'];
+            $check = Dp::update($diseaseID,$pathogenID);
+            header('location:index.php?controller=rice&action=index_riceDiseasePathogen');
         }
     }
 ?>
