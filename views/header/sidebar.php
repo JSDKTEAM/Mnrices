@@ -29,7 +29,6 @@
 					</a></li>
 				</ul>
 			</li>
-			<?php ob_start();?>
 			<li><a href="?controller=dep&action=index_dep"><em class="fa fa-building">&nbsp;</em> จัดการหน่วยงาน</a></li>
 			<li><a href="?controller=user&action=index_userMm"><em class="fa fa-users">&nbsp;</em> จัดการผู้ใช้</a></li>
 			<li class="parent"><a data-toggle="collapse" href="#sub-item-2">
