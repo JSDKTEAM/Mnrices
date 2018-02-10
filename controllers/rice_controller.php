@@ -26,7 +26,7 @@
             $dispersed = $_REQUEST['dispersed'];
             $prevention = $_REQUEST['prevention'];
             $check = Disease::insert($name,$location,$symptom,$dispersed,$prevention);
-            header('location:index.php?controller=rice&action=index_riceDisease');
+			header('location:index.php?controller=rice&action=index_riceDisease');
         }
 
         public function  updateDisease()
@@ -38,7 +38,7 @@
             $dispersed = $_REQUEST['dispersed'];
             $prevention = $_REQUEST['prevention'];
             $check = Disease::update($diseaseID,$name,$location,$symptom,$dispersed,$prevention);
-            header('location:index.php?controller=rice&action=index_riceDisease');
+			header('location:index.php?controller=rice&action=index_riceDisease');
         }
         public function index_ricePathogen()
         {
@@ -63,7 +63,7 @@
             $type = $_REQUEST['type'];
             $description = $_REQUEST['description'];
             $check = Pathogen::update($pathogenID,$commonName,$scientificName,$type,$description);
-            header('location:index.php?controller=rice&action=index_ricePathogen');
+			header('location:index.php?controller=rice&action=index_ricePathogen');
         }
         public function searchPathogen()
         {
@@ -115,7 +115,7 @@
         $notice = $_REQUEST['notice'];
         $recommendArea = $_REQUEST['recommendArea'];
         $return = Species::insert($commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
-	      header('location:index.php?controller=rice&action=index_riceSpecies');
+		header('location:index.php?controller=rice&action=index_riceSpecies');
         }
         public function updateSpecies()
         {
@@ -134,7 +134,7 @@
 
             if($result)
             {
-                header('location:index.php?controller=rice&action=index_riceSpecies');
+				header('location:index.php?controller=rice&action=index_riceSpecies');
             }
         }
 
@@ -209,7 +209,7 @@
             $diseaseID = $_REQUEST['diseaseID'];
             $pathogenID = $_REQUEST['pathogenID'];
             $check = Dp::update($diseaseID,$pathogenID);
-            header('location:index.php?controller=rice&action=index_riceDiseasePathogen');
+			header('location:index.php?controller=rice&action=index_riceDiseasePathogen');
         }
     }
 ?>

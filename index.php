@@ -1,4 +1,5 @@
 <?php 
+ob_start();
 if(isset($_REQUEST['controller'])&&isset($_REQUEST['action']))
 {
 	$controller = $_REQUEST['controller'];
@@ -23,6 +24,9 @@ else
 	<link href="css/datepicker3.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
 	<link href="css/validator.css" rel="stylesheet">
+	 <!-- sweetalert -->
+	 <script src="sweetalert-master/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="sweetalert-master/dist/sweetalert.css">
 	<!--Custom Font-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 	<!--[if lt IE 9]>
@@ -30,7 +34,7 @@ else
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	<!-- font -->
-	 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet"> 
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/chart.min.js"></script>
@@ -53,7 +57,7 @@ else
     </script>
 </head>
 <header >
-		<?php include('views/header/nav.php') ?>	
+		<?php include('views/header/nav.php') ?>
 		<?php include('views/header/sidebar.php')?>
 </header>
 <body id="<?php echo $controller ?>">

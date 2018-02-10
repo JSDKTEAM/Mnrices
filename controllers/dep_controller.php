@@ -11,7 +11,7 @@
             $depName = $_REQUEST['depName'];
             $depWMLabel = $_REQUEST['depWMLabel'];
             $check = Department::insert($depName,$depWMLabel);
-            DepartmentController::index_dep();
+            header("Location: index.php?controller=dep&action=index_dep&check=$check");
         }
         public function updateDep()
         {
@@ -23,7 +23,7 @@
             {
                 //DepartmentController::index_dep();
                 //echo "<script type='text/javascript'>window.location='index.php?controller=dep&action=index_dep'; </script>";
-                header("Location: index.php?controller=dep&action=index_dep");
+				header("Location: index.php?controller=dep&action=index_dep&check=$check");
             }
         }
     }

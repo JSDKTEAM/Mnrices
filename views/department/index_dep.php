@@ -1,3 +1,28 @@
+<?php
+    if(isset($_GET['check']))
+    {
+        if($_GET['check'])
+        {
+            echo "<script>    
+            swal({
+                type: 'success',
+                title: 'สำเร็จ',
+                showConfirmButton: false,
+                timer: 1500
+            })</script>";
+        }
+        else
+        {
+            echo "<script>    
+            swal({
+                type: 'error',
+                title: 'ไม่สำเร็จ',
+                showConfirmButton: false,
+                timer: 1500
+            })</script>";
+        }
+    }
+?>
 <script>
     $(document).ready(function(){
         $('.edit_dep').click(function(){
