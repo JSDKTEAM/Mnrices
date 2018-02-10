@@ -24,6 +24,9 @@ else
 	<link href="css/datepicker3.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
 	<link href="css/validator.css" rel="stylesheet">
+	<!-- textcount-->
+	<script src="charcounter.js"></script>
+
 	 <!-- sweetalert -->
 	 <script src="sweetalert-master/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="sweetalert-master/dist/sweetalert.css">

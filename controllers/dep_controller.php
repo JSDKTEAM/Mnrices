@@ -21,8 +21,6 @@
             $check = Department::update($depID,$depName,$depWMLabel);
             if($check)
             {
-                //DepartmentController::index_dep();
-                //echo "<script type='text/javascript'>window.location='index.php?controller=dep&action=index_dep'; </script>";
 				header("Location: index.php?controller=dep&action=index_dep&check=$check");
             }
         }

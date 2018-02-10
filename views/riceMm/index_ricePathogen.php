@@ -109,10 +109,10 @@
       <!-- Modal body -->
       <div class="modal-body">
         <form action="" method="POST">
-            <label>ชื่อสามัญ <input type="text" class="form-control" name="commonName"></label><br/>
-            <label>ชื่อวิทยาศาสตร์ <input type="text" class="form-control" name="scientificName"></label><br/>
-            <label>ชนิด <input type="text" class="form-control" name="type"></label><br/>
-            <label>รายละเอียด <textarea rows="5" cols="50" class="descriptionADD form-control" name="description"></textarea></label>
+            <label>ชื่อสามัญ <input type="text" class="form-control" maxlength="70" name="commonName"></label><br/>
+            <label>ชื่อวิทยาศาสตร์ <input type="text" class="form-control" maxlength="70" name="scientificName"></label><br/>
+            <label>ชนิด <input type="text" class="form-control" maxlength="50" name="type"></label><br/>
+            <label>รายละเอียด <textarea rows="5" cols="50" class="descriptionADD form-control" maxlength="200" name="description"></textarea></label>
             <input type="hidden" name="controller" value="rice">
             <hr>
             <button type="submit" name= "action" value="addPathogen" class="btn btn-success btn-block">เพิ่มข้อมูล</button>
@@ -173,10 +173,10 @@
       <div class="modal-body">
         <form action="" method="POST">
         <input type="hidden" id="pathogenID" name="pathogenID">
-        <label>ชื่อสามัญ <input type="text" id="commonName" class="form-control" name="commonName"></label><br/>
-        <label>ชื่อวิทยาศาสตร์ <input type="text" id= "scientificName" class="form-control" name="scientificName"></label><br/>
-        <label>ชนิด <input type="text" id= "type" class="form-control" name="type"></label><br/>
-        <label>รายละเอียด <textarea id="description" rows="5" cols="50" class="description form-control" name="description"></textarea></label>
+        <label>ชื่อสามัญ <input type="text" id="commonName" class="form-control" maxlength="70" name="commonName"></label><br/>
+        <label>ชื่อวิทยาศาสตร์ <input type="text" id= "scientificName" class="form-control" maxlength="70" name="scientificName"></label><br/>
+        <label>ชนิด <input type="text" id= "type" class="form-control" maxlength="50" name="type"></label><br/>
+        <label>รายละเอียด <textarea id="description" rows="5" cols="50" class="description form-control" maxlength="200" name="description"></textarea></label>
         <input type="hidden" name="controller" value="rice">
         <hr>
           <button type="submit" name="action" value="updatePathogen" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
