@@ -20,6 +20,22 @@
         });
     });
 </script>
+<script>
+$(document).ready(function(){
+  $("location").charCounter({
+    backgroundColor: "#FFFFFF",
+    position: {
+      right: 10,
+      top: 10
+    },
+    font:   {
+      size: 10,
+      color: "#a59c8c"
+    },
+    limit: 200
+  });
+});
+</script>
 <h1 class="page-header">จัดการโรคข้าว</h1>
 <!-- Button to Open the Modal -->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">เพิ่มโรคข้าว</button>
@@ -48,11 +64,11 @@
       <!-- Modal body -->
       <div class="modal-body">
         <form action="">
-            <label>ชื่อ <input type="text" class="form-control" name="name"></label><br/>
-            <label>พื้นที่ที่พบ <textarea rows="5" cols="50" class="form-control" name="location"></textarea></label>
-            <label>ลักษณะอาการ <textarea rows="5" cols="50" class="form-control" name="symptom"></textarea></label>
-            <label>การแพร่ระบาด <textarea rows="5" cols="50" class="form-control" name="dispersed"></textarea></label>
-            <label>การป้องกัน <textarea rows="5" cols="50" class="form-control" name="prevention"></textarea></label>
+            <label>ชื่อ <input type="text" class="form-control" name="name" maxlength="70"></label><br/>
+            <label>พื้นที่ที่พบ <textarea rows="5" cols="50" class="location form-control" name="location" maxlength="200"></textarea></label>
+            <label>ลักษณะอาการ <textarea rows="5" cols="50" class="form-control" name="symptom" maxlength="200"></textarea></label>
+            <label>การแพร่ระบาด <textarea rows="5" cols="50" class="form-control" name="dispersed" maxlength="200"></textarea></label>
+            <label>การป้องกัน <textarea rows="5" cols="50" class="form-control" name="prevention" maxlength="200"></textarea></label>
       </div>
 
       <!-- Modal footer -->
@@ -123,11 +139,11 @@
       <div class="modal-body">
         <form >
             <input type="hidden" id="diseaseID" name="diseaseID">
-            <label>* ชื่อ <input  id="diseaseName" name="name" type="text" class="form-control"  required></label><br/>
-            <label>* พื้นที่ที่พบ <textarea id="diseaseLocation" name="location" rows="5" cols="50" class="form-control"  required></textarea></label>
-            <label>* ลักษณะอาการ <textarea id="diseaseSymptom" name="symptom" rows="5" cols="50" class="form-control"  required></textarea></label>
-            <label>* การแพร่ระบาด <textarea id="diseaseDispersed" name="dispersed" rows="5" cols="50" class="form-control"  required></textarea></label>
-            <label>* การป้องกัน <textarea id="diseasePrevention" name="prevention" rows="5" cols="50" class="form-control"  required></textarea></label>
+            <label>* ชื่อ <input  id="diseaseName" name="name" type="text" class="form-control"  maxlength="70" required></label><br/>
+            <label>* พื้นที่ที่พบ <textarea id="diseaseLocation" name="location" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea></label>
+            <label>* ลักษณะอาการ <textarea id="diseaseSymptom" name="symptom" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea></label>
+            <label>* การแพร่ระบาด <textarea id="diseaseDispersed" name="dispersed" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea></label>
+            <label>* การป้องกัน <textarea id="diseasePrevention" name="prevention" rows="5" cols="50"  maxlength="200" class="form-control"  required></textarea></label>
          
           <hr>
           <input type="hidden" name="controller" value="rice">
