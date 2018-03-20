@@ -44,10 +44,10 @@
             require('connection_connect');
             $sql ="SELECT * FROM users 
                     LEFT JOIN department ON department.depID = users.depID";
-            $result = mysqli_query($conn, $sql);
-            if(mysqli_num_rows($result) > 0)
+            $result = DbHelp::query($sql,$conn);
+            if(DbHelp::countRow($result) > 0)
             {
-                while($row = mysqli_fetch_assoc($result))
+                while($row = DbHelp::fetch($result))
                 {
                     $userName = $row['userName'];
                     $firstName = $row['firstname'];

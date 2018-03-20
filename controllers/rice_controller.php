@@ -12,9 +12,7 @@
                 $page = 1;
             }
             $start = ($page - 1) * $perpage;
-
             $total_page = Disease::countRowAll();
-
             $diseaseList = Disease::getAll($start,$perpage);
             require_once('views/riceMm/index_riceDisease.php');
         }
@@ -42,8 +40,18 @@
         }
         public function index_ricePathogen()
         {
-            $total_page=0;
-            $pathogen_list = Pathogen::getAll();
+            $perpage = 10;
+            if(isset($_GET['page']))
+            {
+                $page = $_GET['page'];
+            } 
+            else
+            {
+                $page = 1;
+            }
+            $start = ($page - 1) * $perpage;
+            $total_page=Pathogen::countRowAll();
+            $pathogen_list = Pathogen::getAll($start,$perpage);
             require_once('views/riceMm/index_ricePathogen.php');
         }
         public function addPathogen()
@@ -95,9 +103,7 @@
                 $page = 1;
             }
             $start = ($page - 1) * $perpage;
-
             $total_page = Species::countRowAll();
-
             $speciesList = Species::getAll($start,$perpage);
 
             require_once('views/riceMm/index_riceSpecies.php');
@@ -190,9 +196,8 @@
                 $page = 1;
             }
             $start = ($page - 1) * $perpage;
-            $pathogen_list = Pathogen::getAll($start,$perpage);
-            $disease_list = Disease::getAll();
-            $pathogen_list = Pathogen::getAll();
+            $disease_list = Disease::getAll("","");
+            $pathogen_list = Pathogen::getAll("","");
             $dp_list = Dp::getAll($start,$perpage);
             $total_page = Dp::countRow();
             require_once('views/riceMm/index_riceDiseasePathogen.php');

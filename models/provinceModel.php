@@ -12,8 +12,8 @@
     {
         require('connection_connect.php');
         $sql = "SELECT * FROM province ORDER BY provinceName";
-        $result = mysqli_query($conn,$sql);
-        while($row = mysqli_fetch_array($result))
+        $result = DbHelp::query($sql,$conn);
+        while($row = DbHelp::fetch($result))
         {
             $provinceID = $row['provinceID'];
             $provinceName = $row['provinceName'];

@@ -20,35 +20,35 @@ $('input[list]').change('input', function(e) {
 });
 </script>
 <h1 class="page-header">จัดการคู่โรคและเชื้อสาเหตุ</h1>
-<form id="myForm">
-    <label>โรคข้าว
-    <input type="text"  list="diseasesID"  id="diseaseID" class="form-control">
-        <datalist id="diseasesID">
-        <?php
-            foreach($disease_list as $disease)
-            {
-                echo "<option data-value=$disease->diseaseID>$disease->name</option>";
-            }
-        ?>
-    </datalist>
-    </label>
-    <input type="hidden" name="diseaseID" id="diseaseID-hidden">
-    จับคู่
-    <label>เชื้อโรค
-    <input type="text"  list="pathogensID" id="pathogenID" class="form-control">
-        <datalist id="pathogensID">
-        <?php
-            foreach($pathogen_list as $pathogen)
-            {
-                echo "<option data-value=$pathogen->pathogenID>$pathogen->commonName</option>";
-            }
-        ?>
-    </datalist>
-    </label>
-    <input type="hidden" name="pathogenID" id="pathogenID-hidden">
-    <input type="hidden" name="controller" value="rice">
-    <button type="submit" class="btn btn-success" name="action" value="insertDiseasePathogen">เพิ่มข้อมูล</button>
-</form>
+    <!--<form id="myForm">
+        <label>โรคข้าว
+        <input type="text"  list="diseasesID"  id="diseaseID" class="form-control" autocomplete="off">
+            <datalist id="diseasesID">
+            <?php
+                foreach($disease_list as $disease)
+                {
+                    echo "<option data-value=$disease->diseaseID>$disease->name</option>";
+                }
+            ?>
+        </datalist>
+        </label>
+        <input type="hidden" name="diseaseID" id="diseaseID-hidden">
+        จับคู่
+        <label>เชื้อโรค
+        <input type="text"  list="pathogensID" id="pathogenID" class="form-control" autocomplete="off">
+            <datalist id="pathogensID">
+            <?php
+                foreach($pathogen_list as $pathogen)
+                {
+                    echo "<option data-value=$pathogen->pathogenID>$pathogen->commonName</option>";
+                }
+            ?>
+        </datalist>
+        </label>
+        <input type="hidden" name="pathogenID" id="pathogenID-hidden">
+        <input type="hidden" name="controller" value="rice">
+        <button type="submit" class="btn btn-success" name="action" value="addDiseasePathogen">เพิ่มข้อมูล</button>
+    </form>-->
 <br/>
 <script>
     $(document).ready(function(){
@@ -104,6 +104,7 @@ $('input[list]').change('input', function(e) {
                 <th></th>
             </tr>
             <?php
+                $i = 0;
                 foreach($dp_list as $dp)
                 {
                         $disease = Disease::get($dp->diseaseID);
@@ -113,8 +114,25 @@ $('input[list]').change('input', function(e) {
                                 <td>$dp->commonName</td>
                               ";
             ?>       
-                    <td align="center">
-                        <a class="detail btn btn-primary"
+                    <td align="left">
+                        <form id="myForm" class="form-inline">
+                            <label>เชื้อโรค
+                            <input type="text"  list="pathogensID<?php echo $i ?>" id="pathogenID<?php echo $i ?>" class="form-control" autocomplete="off">
+                                <datalist id="pathogensID<?php echo $i ?>">
+                                <?php
+                                    foreach($pathogen_list as $pathogen)
+                                    {
+                                        echo "<option data-value=$pathogen->pathogenID>$pathogen->commonName</option>";
+                                    }
+                                ?>
+                            </datalist>
+                            </label>
+                            <input type="hidden" name="diseaseID" value="<?php echo $dp->diseaseID ?>">
+                            <input type="hidden" name="pathogenID" id="pathogenID<?php echo $i ?>-hidden">
+                            <input type="hidden" name="controller" value="rice">
+                            <button type="submit" class="btn btn-success" name="action" value="addDiseasePathogen">เพิ่มเชื้อโรค</button>
+                        </form>
+                        <!--<a class="detail btn btn-primary"
                         data-name="<?php echo $dp->name ?>"
                         data-location="<?php echo $disease->location ?>"
                         data-symptom="<?php echo $disease->symptom ?>"
@@ -131,10 +149,10 @@ $('input[list]').change('input', function(e) {
                         data-diseaseID="<?php echo $dp->diseaseID ?>";
                         data-name="<?php echo $dp->name ?>"
                         data-pathogenID="<?php echo $dp->pathogenID ?>";
-                        data-commonName="<?php echo $pathogen->commonName ?>"><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>
+                        data-commonName="<?php echo $pathogen->commonName ?>"><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>-->
                     </td>
                     </tr>
-        <?php   } ?> 
+        <?php  $i++; } ?> 
 </table>
 
 <!-- The Modal Detail -->

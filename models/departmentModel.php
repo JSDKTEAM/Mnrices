@@ -13,8 +13,10 @@ class Department{
     {
         require("connection_connect.php");
         $sql = "select * from department where depID = '$depID' ";
-        $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
-        $my_row = mysqli_fetch_array($result);
+        $result = DbHelp::query($sql,$conn);
+        $my_row = DbHelp::fetch($result);
+        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+        //$my_row = mysqli_fetch_array($result);
         $depID= $my_row['depID'];
         $depName = $my_row['depName'];
         $depWMLabel = $my_row['depWMLabel'];
@@ -25,9 +27,9 @@ class Department{
     {
         require("connection_connect.php");
         $sql = "select * from department ORDER BY depName";
-        $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
-        
-        while($my_row = mysqli_fetch_array($result))
+        $result = DbHelp::query($sql,$conn);
+        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+        while($my_row =  DbHelp::fetch($result))
         {
             $depID= $my_row['depID'];
             $depName = $my_row['depName'];
@@ -41,7 +43,8 @@ class Department{
     {
         require("connection_connect.php");
         $sql = "INSERT INTO department (depID,depName,depWMLabel)VALUES ('','$depName','$depWMLabel')";
-        $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+        $result = DbHelp::query($sql,$conn);
+        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
         require("connection_close.php");
         return $result;
     }
@@ -49,7 +52,8 @@ class Department{
     { 
         require("connection_connect.php");
         $sql = "UPDATE department SET depName = '$depName',depWMLabel = '$depWMLabel' WHERE depID = '$depID' ";
-        $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+        $result = DbHelp::query($sql,$conn);
         require("connection_close.php");
         return $result;
     }
@@ -57,7 +61,8 @@ class Department{
     { 
         require("connection_connect.php");
         $sql = "DELETE FROM department WHERE depID = '$depID'";
-        $result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
+        $result = DbHelp::query($sql,$conn);
         require("connection_close.php");
     }
 }

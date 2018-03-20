@@ -30,8 +30,8 @@
      { 
         require('connection_connect.php');
          $sql = "SELECT * FROM species LIMIT $start,$perpage";
-         $result = mysqli_query($conn,$sql);
-         while($row = mysqli_fetch_array($result))
+         $result = DbHelp::query($sql,$conn);
+         while($row = DbHelp::fetch($result))
          {
             $speciesID = $row['speciesID'];
             $commonName = $row['commonName'];
@@ -52,10 +52,10 @@
      {
         require('connection_connect.php');
         $sql = "SELECT * FROM species WHERE speciesID = $speciesID";
-        $result = mysqli_query($conn,$sql);
+        $result = DbHelp::query($sql,$conn);
         if($result)
         {
-            $row = mysqli_fetch_array($result);
+            $row = DbHelp::fetch($result);
             $speciesID = $row['speciesID'];
             $commonName = $row['commonName'];
             $scientificName = $row['scientificName'];
@@ -84,7 +84,7 @@
                 notice,
                 recommendArea) VALUES('$commonName','$scientificName','$speciesName','$type','$history','$characteristic','$productRate','$feature','$notice','$recommendArea')";
         $result = 0;
-        $result = mysqli_query($conn,$sql);
+        $result = DbHelp::query($sql,$conn);
         require('connection_close.php');
         return $result;
      }
@@ -102,7 +102,7 @@
                 notice = '$notice',
                 recommendArea = '$recommendArea' WHERE speciesID = $speciesID";
         $result = 0;
-        $result = mysqli_query($conn,$sql);
+        $result = DbHelp::query($sql,$conn);
         require('connection_close.php');
         return $result;
      }
@@ -122,9 +122,9 @@
         OR recommendArea LIKE '%$key%'
         order by commonName LIMIT $start,$perpage";
         
-        $result = mysqli_query($conn,$sql);
+        $result = DbHelp::query($sql,$conn);
 
-        while($row = mysqli_fetch_array($result))
+        while($row = DbHelp::fetch($result))
         {
            $speciesID = $row['speciesID'];
            $commonName = $row['commonName'];
@@ -140,7 +140,7 @@
         }
         require('connection_close.php');
 
-        if(mysqli_num_rows($result) < 1)
+        if(DbHelp::countRow($result) < 1)
         {
             return $speciesList = null;
         }
@@ -160,8 +160,8 @@
          OR feature LIKE '%$key%' 
          OR notice LIKE '%$key%' 
          OR recommendArea LIKE '%$key%' ";
-         $result = mysqli_query($conn,$sql);
-         $total = mysqli_num_rows($result);
+         $result = DbHelp::query($sql,$conn);
+         $total = DbHelp::countRow($result);
          $total_page = ceil($total / 10);
          require("connection_close.php");
          return $total_page;
@@ -171,8 +171,8 @@
      {
          require("connection_connect.php");
          $sql = "SELECT * FROM species ";
-         $result = mysqli_query($conn,$sql);
-         $total = mysqli_num_rows($result);
+         $result = DbHelp::query($sql,$conn);
+         $total = DbHelp::countRow($result);
          $total_page = ceil($total / 10);
          require("connection_close.php");
          return $total_page;

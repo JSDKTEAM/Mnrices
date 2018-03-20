@@ -12,36 +12,6 @@
 });
 </script>
 <script>
-  $(document).ready(function(){
-    $(".add_p").click(function(){
-      var $counter = $('<div class="character-counter">'),
-            limit = 200;
- 
-        // Get the textarea field
-        $('.descriptionADD')
- 
-        // Add the counter after it
-        .after($counter)
- 
-        // Bind the counter function on keyup and blur events
-        .bind('keyup blur', function () {
-            var length = $(this).val().length;
- 
-            if (length > limit) {
-                // The value exceeds the limit, contain it
-                $(this).val($(this).val().substring(0, limit));
-            } else {
-                // Set the counter text
-                $counter.text(length + '/' + limit + ' characters');
-            }
-        })
- 
-        // Trigger the counter on first load
-        .blur();
-    });
-});
-</script>
-<script>
     $(document).ready(function(){
         $('.edit_pathogen').click(function(){
         // get data from edit btn
@@ -56,32 +26,8 @@
         $("#scientificName").val(scientificName);
         $("#type").val(type);
         $("#description").val(description);
+        $(".description").charCounter({limit:200});
         $("#edit_pathogen_modal").modal('show');
-
-        var $counter = $('<div class="character-counter">'),
-            limit = 200;
- 
-        // Get the textarea field
-        $('.description')
- 
-        // Add the counter after it
-        .after($counter)
- 
-        // Bind the counter function on keyup and blur events
-        .bind('keyup blur', function () {
-            var length = $(this).val().length;
- 
-            if (length > limit) {
-                // The value exceeds the limit, contain it
-                $(this).val($(this).val().substring(0, limit));
-            } else {
-                // Set the counter text
-                $counter.text(length + '/' + limit + ' characters');
-            }
-        })
- 
-        // Trigger the counter on first load
-        .blur();
         });
     });
 </script>
@@ -109,10 +55,10 @@
       <!-- Modal body -->
       <div class="modal-body">
         <form action="" method="POST">
-            <label>ชื่อสามัญ <input type="text" class="form-control" maxlength="70" name="commonName"></label><br/>
-            <label>ชื่อวิทยาศาสตร์ <input type="text" class="form-control" maxlength="70" name="scientificName"></label><br/>
-            <label>ชนิด <input type="text" class="form-control" maxlength="50" name="type"></label><br/>
-            <label>รายละเอียด <textarea rows="5" cols="50" class="descriptionADD form-control" maxlength="200" name="description"></textarea></label>
+            <label>ชื่อสามัญ </label><input type="text" class="form-control" maxlength="70" name="commonName"><br/>
+            <label>ชื่อวิทยาศาสตร์ </label><input type="text" class="form-control" maxlength="70" name="scientificName"><br/>
+            <label>ชนิด </label><input type="text" class="form-control" maxlength="50" name="type"><br/>
+            <label>รายละเอียด </label><br/><textarea rows="5" cols="50" class="description form-control" maxlength="200" name="description"></textarea>
             <input type="hidden" name="controller" value="rice">
             <hr>
             <button type="submit" name= "action" value="addPathogen" class="btn btn-success btn-block">เพิ่มข้อมูล</button>
@@ -142,7 +88,7 @@
                   <td>$pathogen->description</td>
                 ";
       ?>
-        <td>
+        <td align="center">
           <a class="btn btn-success edit_pathogen"
           data-pathogenID = <?php echo $pathogen->pathogenID ?>
           data-commonName = <?php echo $pathogen->commonName ?>
@@ -173,10 +119,10 @@
       <div class="modal-body">
         <form action="" method="POST">
         <input type="hidden" id="pathogenID" name="pathogenID">
-        <label>ชื่อสามัญ <input type="text" id="commonName" class="form-control" maxlength="70" name="commonName"></label><br/>
-        <label>ชื่อวิทยาศาสตร์ <input type="text" id= "scientificName" class="form-control" maxlength="70" name="scientificName"></label><br/>
-        <label>ชนิด <input type="text" id= "type" class="form-control" maxlength="50" name="type"></label><br/>
-        <label>รายละเอียด <textarea id="description" rows="5" cols="50" class="description form-control" maxlength="200" name="description"></textarea></label>
+        <label>ชื่อสามัญ </label><input type="text" id="commonName" class="form-control" maxlength="70" name="commonName"><br/>
+        <label>ชื่อวิทยาศาสตร์ </label><input type="text" id= "scientificName" class="form-control" maxlength="70" name="scientificName"><br/>
+        <label>ชนิด </label><input type="text" id= "type" class="form-control" maxlength="50" name="type"><br/>
+        <label>รายละเอียด </label><br/><textarea id="description" rows="5" cols="50" class="description form-control" maxlength="200" name="description"></textarea>
         <input type="hidden" name="controller" value="rice">
         <hr>
           <button type="submit" name="action" value="updatePathogen" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
@@ -186,3 +132,7 @@
     </div>
   </div>
 </div>
+<script src="js/charcounter.js"></script>
+<script>
+$(".description").charCounter({limit:200});
+</script>
