@@ -56,6 +56,10 @@
         $("#feature2").val(feature2);
         $("#notice2").val(notice2);
         $("#recommendArea2").val(recommendArea2);
+        $(".history").charCounter({limit:200});
+        $(".characteristic").charCounter({limit:200});
+        $(".feature").charCounter({limit:200});
+        $(".recommendArea").charCounter({limit:200});
         $("#edit_spec_modal2").modal('show');
         });
     });
@@ -87,30 +91,29 @@
       <!-- Modal body -->
       <div class="modal-body">
         <form>
-            <label>ชื่อสามัญ <input type="text" class="form-control" maxlength="70" name="commonName"></label>
-            <label>ชื่อวิทยาศาสตร์ <input type="text" class="form-control" maxlength="70" name="scientificName"></label>
-            <label>ชื่อพันธุ์ <input type="text" class="form-control" maxlength="70" name="speciesName"></label>
-            <label>ชนิดข้าว <input type="text" class="form-control" maxlength="50" name="type"></label><br/>
-            <label>ประวัติพันธุ์ข้าว <textarea rows="5" cols="50" class="form-control" maxlength="200" name="history"></textarea></label>
-            <label>ลักษณะประจำพันธุ์ <textarea rows="5" cols="50" class="form-control" maxlength="200" name="characteristic"></textarea></label>
-            <label>ผลผลิต(กก)/ไร่ <input type="number" class="form-control" name="productRate"></label><br/>
-            <label>ลักษณะเด่น <textarea rows="5" cols="50" class="form-control" maxlength="200" name="feature"></textarea></label>
-            <label>ข้อควรระวัง <textarea rows="5" cols="50" class="form-control" maxlength="200" name="notice"></textarea></label>
-            <label>พื้นที่แนะนำ <textarea rows="5" cols="110" class="form-control"  maxlength="200" name="recommendArea"></textarea></label>
-
+        <div class="col-md-6">
+            <label>ชื่อสามัญ </label><input type="text" class="form-control" maxlength="70" name="commonName">
+            <label>ชื่อวิทยาศาสตร์ </label><input type="text" class="form-control" maxlength="70" name="scientificName">
+            <label>ชื่อพันธุ์ </label><input type="text" class="form-control" maxlength="70" name="speciesName">
+            <label>ชนิดข้าว </label><input type="text" class="form-control" maxlength="50" name="type">
+            <label>ผลผลิต(กก)/ไร่ </label><input type="number" class="form-control" name="productRate">
+            <label>ประวัติพันธุ์ข้าว </label><br/><textarea rows="5" cols="50" class="history form-control" maxlength="200" name="history"></textarea>
+            <label>ลักษณะประจำพันธุ์ </label><br/><textarea rows="5" cols="50" class="characteristic form-control" maxlength="200" name="characteristic"></textarea>
+        </div>
+        <div class="col-md-6">
+            <label>ลักษณะเด่น </label><br/><textarea rows="5" cols="50" class="feature form-control" maxlength="200" name="feature"></textarea>
+            <label>ข้อควรระวัง </label><br/><textarea rows="5" cols="50" class="notice form-control" maxlength="200" name="notice"></textarea>
+            <label>พื้นที่แนะนำ </label><br/><textarea rows="5" cols="110" class="recommendArea form-control"  maxlength="200" name="recommendArea"></textarea>
+        </div>
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-   	 <input type="hidden" name="controller" value="rice">
+   	      <input type="hidden" name="controller" value="rice">
         <button type="submit" class="btn btn-success btn-block"  name="action" value="addSpecies">เพิ่มข้อมูล</button>
-	</form>
-
-
-
+	    </form>
       </div>
-        
-    </div>
+   </div>
   </div>
 </div>
 <br/><br/>
@@ -214,24 +217,33 @@ if($speciesList != null)
       <!-- Modal body -->
       <div class="modal-body">
         <form >
-        <input type="hidden" id="speciesID2" name="speciesID2">
-        <label>ชื่อสามัญ<input id="commonName2" type="text" name="commonName2" maxlength="70" class="form-control" required ></label>
-            <label>ชื่อวิทยาศาสตร์ <input id="scientificName2" type="text" name="scientificName2" maxlength="70" class="form-control" required ></label>
-            <label>ชื่อพันธุ์ <input id="speciesName2" type="text" name="speciesName2" maxlength="70" class="form-control" required ></label>
-            <label>ชนิดข้าว <input id="type2" type="text" name="type2" maxlength="50" class="form-control" required ></label><br/>
-            <label>ประวัติพันธุ์ข้าว <textarea rows="5" cols="50" class="form-control" maxlength="200" id="history2" type="text" name="history2" required ></textarea></label>
-            <label>ลักษณะประจำพันธุ์ <textarea rows="5" cols="50" class="form-control" maxlength="200" id="characteristic2" type="text" name="characteristic2" ></textarea></label>
-            <label>ผลผลิต(กก)/ไร่ <input id="productRate2" type="number" name="productRate2" class="form-control" required ></label><br/>
-            <label>ลักษณะเด่น <textarea rows="5" cols="50" class="form-control" maxlength="200" id="feature2" type="text" name="feature2" required ></textarea></label>
-            <label>ข้อควรระวัง <textarea rows="5" cols="50" class="form-control" maxlength="200" id="notice2" type="text" name="notice2" required ></textarea></label>
-            <label>พื้นที่แนะนำ <textarea rows="5" cols="110" class="form-control"  maxlength="200" id="recommendArea2" type="text" name="recommendArea2" required ></textarea></label>
-           
+        <div class="col-md-6">
+          <input type="hidden" id="speciesID2" name="speciesID2">
+          <label>ชื่อสามัญ </label><input id="commonName2" type="text" name="commonName2" maxlength="70" class="commonName form-control" required >
+          <label>ชื่อวิทยาศาสตร์ </label><input id="scientificName2" type="text" name="scientificName2" maxlength="70" class="scientificName form-control" required >
+          <label>ชื่อพันธุ์ </label><input id="speciesName2" type="text" name="speciesName2" maxlength="70" class="speciesName form-control" required >
+          <label>ชนิดข้าว </label><input id="type2" type="text" name="type2" maxlength="50" class="type form-control" required >
+          <label>ผลผลิต(กก)/ไร่ </label><input id="productRate2" type="number" name="productRate2" class="productRate form-control" required >
+          <label>ประวัติพันธุ์ข้าว </label><br/><textarea rows="5" cols="50" class="history form-control" maxlength="200" id="history2" type="text" name="history2" required ></textarea>
+          <label>ลักษณะประจำพันธุ์ </label><br/><textarea rows="5" cols="50" class="characteristic form-control" maxlength="200" id="characteristic2" type="text" name="characteristic2" ></textarea>
+        </div>
+        <div class="col-md-6">
+            <label>ลักษณะเด่น </label><br/><textarea rows="5" cols="50" class="feature form-control" maxlength="200" id="feature2" type="text" name="feature2" required ></textarea><br/>
+            <label>ข้อควรระวัง </label><br/><textarea rows="5" cols="50" class="notice form-control" maxlength="200" id="notice2" type="text" name="notice2" required ></textarea><br/>
+            <label>พื้นที่แนะนำ </label><br/><textarea rows="5" cols="110" class="recommendArea form-control"  maxlength="200" id="recommendArea2" type="text" name="recommendArea2" required ></textarea><br/>
+        </div>   
             <input type="hidden" name="controller" value="rice">
-          <button type="submit" name="action" value="updateSpecies" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
-       
+            <button type="submit" name="action" value="updateSpecies" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
         </form>
       </div>
 
     </div>
   </div>
 </div>
+<script src="js/charcounter.js"></script>
+<script>
+$(".history").charCounter({limit:200});
+$(".characteristic").charCounter({limit:200});
+$(".feature").charCounter({limit:200});
+$(".recommendArea").charCounter({limit:200});
+</script>

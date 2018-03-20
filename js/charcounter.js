@@ -9,12 +9,12 @@
  *
  */
 
-(function ($) {
+(function($) {
     "use strict";
 
-    $.fn.charCounter = function (options) {
+    $.fn.charCounter = function(options) {
         if (typeof String.prototype.format == "undefined") {
-            String.prototype.format = function () {
+            String.prototype.format = function() {
                 var content = this;
                 for (var i = 0; i < arguments.length; i++) {
                     var replacement = '{' + i + '}';
@@ -30,31 +30,31 @@
                 right: 10,
                 top: 10
             },
-            font:   {
+            font:  {
                 size: 10,
                 color: "#a59c8c"
             },
             limit: 255
         }, options);
 
-        return this.each(function () {
+        return this.each(function() {
             var el = $(this),
                 wrapper = $("<div/>").addClass('focus-textarea').css({
                     "position": "relative",
-                        "display": "inline-block"
+                    "display": "inline-block"
                 }),
                 label = $("<span/>").css({
                     "zIndex": 999,
-                        "backgroundColor": options.backgroundColor,
-                        "position": "absolute",
-                        "font-size": options.font.size,
-                        "color": options.font.color
+                    "backgroundColor": options.backgroundColor,
+                    "position": "absolute",
+                    "font-size": options.font.size,
+                    "color": options.font.color
                 }).css(options.position);
-            
-            if(options.limit > 0){
+
+            if (options.limit > 0) {
                 label.text("{0}/{1}".format(el.val().length, options.limit));
                 el.prop("maxlength", options.limit);
-            }else{
+            } else {
                 label.text(el.val().length);
             }
 
@@ -65,9 +65,9 @@
                 .on('keydown', updateLabel);
 
             function updateLabel(e) {
-                if(options.limit > 0){
+                if (options.limit > 0) {
                     label.text("{0}/{1}".format($(this).val().length, options.limit));
-                }else{
+                } else {
                     label.text($(this).val().length);
                 }
             }

@@ -16,25 +16,13 @@
         $("#diseaseSymptom").val(diseaseSymptom);
         $("#diseaseDispersed").val(diseaseDispersed);
         $("#diseasePrevention").val(diseasePrevention);
+        $("#diseaseLocation").charCounter({limit:200});
+        $("#diseaseSymptom").charCounter({limit:200});
+        $("#diseaseDispersed").charCounter({limit:200});
+        $("#diseasePrevention").charCounter({limit:200});
         $("#edit_disease_modal").modal('show');
         });
     });
-</script>
-<script>
-$(document).ready(function(){
-  $("location").charCounter({
-    backgroundColor: "#FFFFFF",
-    position: {
-      right: 10,
-      top: 10
-    },
-    font:   {
-      size: 10,
-      color: "#a59c8c"
-    },
-    limit: 200
-  });
-});
 </script>
 <h1 class="page-header">จัดการโรคข้าว</h1>
 <!-- Button to Open the Modal -->
@@ -64,17 +52,21 @@ $(document).ready(function(){
       <!-- Modal body -->
       <div class="modal-body">
         <form action="">
-            <label>ชื่อ <input type="text" class="form-control" name="name" maxlength="70"></label><br/>
-            <label>พื้นที่ที่พบ <textarea rows="5" cols="50" class="location form-control" name="location" maxlength="200"></textarea></label>
-            <label>ลักษณะอาการ <textarea rows="5" cols="50" class="form-control" name="symptom" maxlength="200"></textarea></label>
-            <label>การแพร่ระบาด <textarea rows="5" cols="50" class="form-control" name="dispersed" maxlength="200"></textarea></label>
-            <label>การป้องกัน <textarea rows="5" cols="50" class="form-control" name="prevention" maxlength="200"></textarea></label>
+            <div class="row">
+              <div class="col-md-6">
+                <label>* ชื่อ </label><input type="text" class="form-control" name="name" maxlength="70"><br/>
+                <label>* พื้นที่ที่พบ </label><br/><textarea rows="5" cols="50" class="location form-control" name="location" maxlength="200"></textarea><br/>
+                <label>* ลักษณะอาการ </label><br/><textarea rows="5" cols="50" class="symptom form-control" name="symptom" maxlength="200"></textarea><br/>
+              </div>
+              <div class="col-md-6">
+                <label>* การแพร่ระบาด </label><br/><textarea rows="5" cols="50" class="dispersed form-control" name="dispersed" maxlength="200"></textarea><br/>
+                <label>* การป้องกัน </label><br/><textarea rows="5" cols="50" class="prevention form-control" name="prevention" maxlength="200"></textarea>
+              </div>     
+            </div>
       </div>
-
-      <!-- Modal footer -->
       <div class="modal-footer">
-      <input type="hidden" name="controller" value="rice">
-      <button type="submit" name="action" value="addDisease" class="btn btn-success btn-block">เพิ่มข้อมูล</button>
+        <input type="hidden" name="controller" value="rice">
+        <button type="submit" name="action" value="addDisease" class="btn btn-success btn-block">เพิ่มข้อมูล</button>
       </form>
       </div>
 
@@ -138,20 +130,32 @@ $(document).ready(function(){
       <!-- Modal body -->
       <div class="modal-body">
         <form >
-            <input type="hidden" id="diseaseID" name="diseaseID">
-            <label>* ชื่อ <input  id="diseaseName" name="name" type="text" class="form-control"  maxlength="70" required></label><br/>
-            <label>* พื้นที่ที่พบ <textarea id="diseaseLocation" name="location" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea></label>
-            <label>* ลักษณะอาการ <textarea id="diseaseSymptom" name="symptom" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea></label>
-            <label>* การแพร่ระบาด <textarea id="diseaseDispersed" name="dispersed" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea></label>
-            <label>* การป้องกัน <textarea id="diseasePrevention" name="prevention" rows="5" cols="50"  maxlength="200" class="form-control"  required></textarea></label>
-         
-          <hr>
+            <div class="row">
+              <div class="col-md-6">
+                <input type="hidden" id="diseaseID" name="diseaseID">
+                <label>* ชื่อ </label><input  id="diseaseName" name="name" type="text" class="form-control"  maxlength="70" required><br/>
+                <label>* พื้นที่ที่พบ </label><br/><textarea id="diseaseLocation" name="location" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea><br/>
+                <label>* ลักษณะอาการ </label><br/><textarea id="diseaseSymptom" name="symptom" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea><br/>
+              </div>
+              <div class="col-md-6">
+                <label>* การแพร่ระบาด </label><br/><textarea id="diseaseDispersed" name="dispersed" rows="5" cols="50" maxlength="200" class="form-control"  required></textarea><br/>
+                <label>* การป้องกัน </label><textarea id="diseasePrevention" name="prevention" rows="5" cols="50"  maxlength="200" class="form-control"  required></textarea>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
           <input type="hidden" name="controller" value="rice">
           <button type="submit" name="action" value="updateDisease" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
-
+      </div>
         </form>
       </div>
-
     </div>
   </div>
 </div>
+<script src="js/charcounter.js"></script>
+<script>
+$(".location").charCounter({limit:200});
+$(".symptom").charCounter({limit:200});
+$(".dispersed").charCounter({limit:200});
+$(".prevention").charCounter({limit:200});
+</script>

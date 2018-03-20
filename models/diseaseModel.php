@@ -15,12 +15,19 @@
          $this->dispersed = $dispersed;
          $this->prevention = $prevention;
      }
-     public static function getAll()
+     public static function getAll($start,$perpage)
      {
-        require('connection_connect.php');
-         $sql = "SELECT * FROM disease";
-         $result = mysqli_query($conn,$sql);
-         while($row = mysqli_fetch_array($result))
+         require('connection_connect.php');
+         if($start == "" && $perpage == "")
+         {
+            $sql = "SELECT * FROM disease order by name";
+         }
+         else
+         {
+            $sql = "SELECT * FROM disease order by name LIMIT $start,$perpage";
+         }
+         $result = DbHelp::query($sql,$conn);
+         while($row = DbHelp::fetch($result))
          {
              $diseaseID = $row['diseaseID'];
              $name = $row['name'];
@@ -37,10 +44,10 @@
      {
         require('connection_connect.php');
         $sql = "SELECT * FROM disease WHERE diseaseID = $diseaseID";
-        $result = mysqli_query($conn,$sql);
+        $result = DbHelp::query($sql,$conn);
         if($result)
         {
-            $row = mysqli_fetch_array($result);
+            $row = DbHelp::fetch($result);
             $diseaseID = $row['diseaseID'];
             $name = $row['name'];
             $location = $row['location'];
@@ -56,7 +63,7 @@
         require('connection_connect.php');
         $sql = "INSERT INTO disease(name,location,symptom,dispersed,prevention) VALUE('$name','$location','$symptom','$dispersed','$prevention')";
         $result = 0;
-        $result = mysqli_query($conn,$sql);
+        $result = DbHelp::query($sql,$conn);
         require('connection_close.php');
         return $result;
      }
@@ -65,7 +72,7 @@
         require('connection_connect.php');
         $sql = "UPDATE disease SET name = '$name',location = '$location', symptom = '$symptom',dispersed = '$dispersed',prevention = '$prevention' WHERE diseaseID = $diseaseID";
         $result = 0;
-        $result = mysqli_query($conn,$sql);
+        $result = DbHelp::query($sql,$conn);
         require('connection_close.php');
         return $result;
      }
@@ -82,8 +89,8 @@
         OR prevention LIKE '%$key%'
         order by name LIMIT $start,$perpage";
         
-        $result = mysqli_query($conn,$sql);
-        while($row = mysqli_fetch_array($result))
+        $result = DbHelp::query($sql,$conn);
+        while($row =DbHelp::fetch($result))
         {
             $diseaseID = $row['diseaseID'];
             $name = $row['name'];
@@ -93,17 +100,15 @@
             $prevention = $row['prevention'];
             $diseaseList[] = new Disease($diseaseID,$name,$location,$symptom,$dispersed,$prevention);
         }
-        require('connection_close.php');
+        
 
-        if(mysqli_num_rows($result) < 1)
+        if(DbHelp::countRow($result) < 1)
         {
+            require('connection_close.php');
             return $diseaseList = null;
         }
-
-
-            return $diseaseList;
-
-
+        require('connection_close.php');
+        return $diseaseList;
      }
 
      public static function countRow($key)
@@ -115,8 +120,8 @@
          OR symptom LIKE '%$key%'
          OR dispersed LIKE '%$key%'
          OR prevention LIKE '%$key%'";
-         $result = mysqli_query($conn,$sql);
-         $total = mysqli_num_rows($result);
+         $result = DbHelp::query($sql,$conn);
+         $total = DbHelp::countRow($result);
          $total_page = ceil($total / 10);
          require("connection_close.php");
          return $total_page;
@@ -126,8 +131,8 @@
      {
          require("connection_connect.php");
          $sql = "SELECT * FROM disease";
-         $result = mysqli_query($conn,$sql);
-         $total = mysqli_num_rows($result);
+         $result = DbHelp::query($sql,$conn);
+         $total = DbHelp::countRow($result);
          $total_page = ceil($total / 10);
          require("connection_close.php");
          return $total_page;
