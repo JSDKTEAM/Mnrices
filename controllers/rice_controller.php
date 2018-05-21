@@ -58,9 +58,9 @@
         {
             $commonName = $_REQUEST['commonName'];
             $scientificName = $_REQUEST['scientificName'];
-            $type = $_REQUEST['type'];
+            $varietyName = $_REQUEST['varietyName'];
             $description = $_REQUEST['description'];
-            $check = Pathogen::insert($commonName,$scientificName,$type,$description);
+            $check = Pathogen::insert($commonName,$scientificName,$varietyName,$description);
             header('location:index.php?controller=rice&action=index_ricePathogen');
         }
         public function updatePathogen()
@@ -68,9 +68,9 @@
             $pathogenID = $_REQUEST['pathogenID'];
             $commonName = $_REQUEST['commonName'];
             $scientificName = $_REQUEST['scientificName'];
-            $type = $_REQUEST['type'];
+            $varietyName = $_REQUEST['varietyName'];
             $description = $_REQUEST['description'];
-            $check = Pathogen::update($pathogenID,$commonName,$scientificName,$type,$description);
+            $check = Pathogen::update($pathogenID,$commonName,$scientificName,$varietyName,$description);
 			header('location:index.php?controller=rice&action=index_ricePathogen');
         }
         public function searchPathogen()
@@ -91,7 +91,7 @@
             $total_page = Pathogen::countRow($key);
             require_once('views/riceMm/index_ricePathogen.php');
         }
-        public function index_riceSpecies()
+        public function index_riceVariety()
         {
             $perpage = 10;
             if(isset($_GET['page']))
@@ -103,44 +103,42 @@
                 $page = 1;
             }
             $start = ($page - 1) * $perpage;
-            $total_page = Species::countRowAll();
-            $speciesList = Species::getAll($start,$perpage);
+            $total_page = Variety::countRowAll();
+            $VarietyList = Variety::getAll($start,$perpage);
 
-            require_once('views/riceMm/index_riceSpecies.php');
+            require_once('views/riceMm/index_riceVariety.php');
         }
-        public function addSpecies()
+        public function addVariety()
         {
         $commonName = $_REQUEST['commonName'];
-        $scientificName = $_REQUEST['scientificName'];
-        $speciesName = $_REQUEST['speciesName'];
-        $type = $_REQUEST['type'];
+        $scientificName = $_REQUEST['scientificName'];   
+        $varietyName = $_REQUEST['varietyName'];
         $history = $_REQUEST['history'];
         $characteristic = $_REQUEST['characteristic'];
         $productRate = $_REQUEST['productRate'];
         $feature = $_REQUEST['feature'];
         $notice = $_REQUEST['notice'];
         $recommendArea = $_REQUEST['recommendArea'];
-        $return = Species::insert($commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
-		header('location:index.php?controller=rice&action=index_riceSpecies');
+        $return = Variety::insert($commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+		header('location:index.php?controller=rice&action=index_riceVariety');
         }
-        public function updateSpecies()
+        public function updateVariety()
         {
-            $speciesID = $_REQUEST['speciesID2'];
+            $VarietyID = $_REQUEST['VarietyID2'];
             $commonName = $_REQUEST['commonName2'];
-            $scientificName = $_REQUEST['scientificName2'];
-            $speciesName = $_REQUEST['speciesName2'];
-            $type = $_REQUEST['type2'];
+            $scientificName = $_REQUEST['scientificName2'];          
+            $varietyName = $_REQUEST['varietyName2'];
             $history = $_REQUEST['history2'];
             $characteristic = $_REQUEST['characteristic2'];
             $productRate = $_REQUEST['productRate2'];
             $feature = $_REQUEST['feature2'];
             $notice = $_REQUEST['notice2'];
             $recommendArea = $_REQUEST['recommendArea2'];
-            $result = Species::update($speciesID,$commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+            $result = Variety::update($VarietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
 
             if($result)
             {
-				header('location:index.php?controller=rice&action=index_riceSpecies');
+				header('location:index.php?controller=rice&action=index_riceVariety');
             }
         }
 
@@ -158,10 +156,10 @@
             }
             $start = ($page - 1) * $perpage;
 
-            $total_page = Species::countRow($_GET['key']);
+            $total_page = Variety::countRow($_GET['key']);
 
-                $speciesList = Species::search_spec($_GET['key'],$start,$perpage);
-                require_once('views/riceMm/index_riceSpecies.php');     
+                $VarietyList = Variety::search_spec($_GET['key'],$start,$perpage);
+                require_once('views/riceMm/index_riceVarietyW.php');     
         }
 
         public function search_dis()

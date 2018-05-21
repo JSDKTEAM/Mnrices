@@ -8,7 +8,7 @@ if(isset($_REQUEST['controller'])&&isset($_REQUEST['action']))
 else
 {
 	$controller = 'rice';
-	$action = 'index_riceSpecies';
+	$action = 'index_riceVariety';
 }
 
 ?>

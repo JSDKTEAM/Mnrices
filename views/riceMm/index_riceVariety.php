@@ -3,9 +3,8 @@
         $('.edit_spec').click(function(){
         // get data from edit btn
         var commonName = $(this).attr('data-commonName');
-        var scientificName = $(this).attr('data-scientificName');
-        var speciesName = $(this).attr('data-speciesName');
-        var type = $(this).attr('data-type');
+        var scientificName = $(this).attr('data-scientificName');     
+        var varietyName = $(this).attr('data-varietyName');
         var history = $(this).attr('data-history');
         var characteristic = $(this).attr('data-characteristic');
         var productRate = $(this).attr('data-productRate');
@@ -15,8 +14,7 @@
         // set value to modal
         document.getElementById("commonName").innerHTML = commonName;
         document.getElementById("scientificName").innerHTML = scientificName;
-        document.getElementById("speciesName").innerHTML = speciesName;
-        document.getElementById("type").innerHTML = type;
+        document.getElementById("varietyName").innerHTML = varietyName;
         document.getElementById("history").innerHTML = history;
         document.getElementById("characteristic").innerHTML = characteristic;
         document.getElementById("productRate").innerHTML = productRate;
@@ -32,24 +30,22 @@
     $(document).ready(function(){
         $('.edit_spec2').click(function(){
         // get data from edit btn
-        var speciesID2 = $(this).attr('data-speciesID2');
+        var VarietyID2 = $(this).attr('data-VarietyID2');
         var commonName2 = $(this).attr('data-commonName2');
         var scientificName2 = $(this).attr('data-scientificName2');
-        var speciesName2 = $(this).attr('data-speciesName2');
-        var type2 = $(this).attr('data-type2');
+        var varietyName2 = $(this).attr('data-varietyName2');
         var history2 = $(this).attr('data-history2');
         var characteristic2 = $(this).attr('data-characteristic2');
         var productRate2 = $(this).attr('data-productRate2');
         var feature2 = $(this).attr('data-feature2');
         var notice2 = $(this).attr('data-notice2');
         var recommendArea2 = $(this).attr('data-recommendArea2');
-        console.log(type);
+        console.log(varietyName);
         // set value to modal
-        $("#speciesID2").val(speciesID2);
+        $("#VarietyID2").val(VarietyID2);
         $("#commonName2").val(commonName2);
         $("#scientificName2").val(scientificName2);
-        $("#speciesName2").val(speciesName2);
-        $("#type2").val(type2);
+        $("#varietyName2").val(varietyName2);
         $("#history2").val(history2);
         $("#characteristic2").val(characteristic2);
         $("#productRate2").val(productRate2);
@@ -94,8 +90,7 @@
         <div class="col-md-6">
             <label>ชื่อสามัญ </label><input type="text" class="form-control" maxlength="70" name="commonName">
             <label>ชื่อวิทยาศาสตร์ </label><input type="text" class="form-control" maxlength="70" name="scientificName">
-            <label>ชื่อพันธุ์ </label><input type="text" class="form-control" maxlength="70" name="speciesName">
-            <label>ชนิดข้าว </label><input type="text" class="form-control" maxlength="50" name="type">
+            <label>พันธุ์ข้าว </label><input type="text" class="form-control" maxlength="50" name="varietyName">
             <label>ผลผลิต(กก)/ไร่ </label><input type="number" class="form-control" name="productRate">
             <label>ประวัติพันธุ์ข้าว </label><br/><textarea rows="5" cols="50" class="history form-control" maxlength="200" name="history"></textarea>
             <label>ลักษณะประจำพันธุ์ </label><br/><textarea rows="5" cols="50" class="characteristic form-control" maxlength="200" name="characteristic"></textarea>
@@ -110,7 +105,7 @@
       <!-- Modal footer -->
       <div class="modal-footer">
    	      <input type="hidden" name="controller" value="rice">
-        <button type="submit" class="btn btn-success btn-block"  name="action" value="addSpecies">เพิ่มข้อมูล</button>
+        <button type="submit" class="btn btn-success btn-block"  name="action" value="addVariety">เพิ่มข้อมูล</button>
 	    </form>
       </div>
    </div>
@@ -122,50 +117,47 @@
   <tr>
     <th>ชื่อสามัญ</th>
     <th>ชื่อวิทยาศาสตร์</th>
-    <th>ชื่อพันธุ์</th>
-    <th>ชนิดข้าว</th>
+    <th>ชื่อพันธุ์ข้าว</th>
+
     <th></th>
   </tr>
 
     <?php 
 
-if($speciesList != null)
+if($VarietyList != null)
 {
-    foreach($speciesList as $species)
+    foreach($VarietyList as $Variety)
     {
 
         echo "<tr>
-                <td>$species->commonName</td>
-                <td>$species->scientificName</td>
-                <td>$species->speciesName</td>
-                <td>$species->type</td>";
+                <td>$Variety->commonName</td>
+                <td>$Variety->scientificName</td> 
+                <td>$Variety->varietyName</td>";
                 ?>
 
                 <td align="center">
                 <a  class="btn btn-primary edit_spec"
-                data-commonName="<?php echo $species->commonName ?>"
-                data-scientificName="<?php echo $species->scientificName ?>"
-                data-speciesName="<?php echo $species->speciesName ?>"
-                data-type="<?php echo $species->type ?>"
-                data-history="<?php echo $species->history ?>"
-                data-characteristic="<?php echo $species->characteristic ?>"
-                data-productRate="<?php echo $species->productRate ?>"
-                data-feature="<?php echo $species->feature ?>"
-                data-notice="<?php echo $species->notice ?>"
-                data-recommendArea="<?php echo $species->recommendArea ?>" ><i class="fa fa-eye" aria-hidden="true"></i> ดูเพิ่มเติม</a> 
+                data-commonName="<?php echo $Variety->commonName ?>"
+                data-scientificName="<?php echo $Variety->scientificName ?>"
+                data-varietyName="<?php echo $Variety->varietyName ?>"
+                data-history="<?php echo $Variety->history ?>"
+                data-characteristic="<?php echo $Variety->characteristic ?>"
+                data-productRate="<?php echo $Variety->productRate ?>"
+                data-feature="<?php echo $Variety->feature ?>"
+                data-notice="<?php echo $Variety->notice ?>"
+                data-recommendArea="<?php echo $Variety->recommendArea ?>" ><i class="fa fa-eye" aria-hidden="true"></i> ดูเพิ่มเติม</a> 
 
                 <a  class="btn btn-success edit_spec2"
-                data-speciesID2="<?php echo $species->speciesID ?>"
-                data-commonName2="<?php echo $species->commonName ?>"
-                data-scientificName2="<?php echo $species->scientificName ?>"
-                data-speciesName2="<?php echo $species->speciesName ?>"
-                data-type2="<?php echo $species->type ?>"
-                data-history2="<?php echo $species->history ?>"
-                data-characteristic2="<?php echo $species->characteristic ?>"
-                data-productRate2="<?php echo $species->productRate ?>"
-                data-feature2="<?php echo $species->feature ?>"
-                data-notice2="<?php echo $species->notice ?>"
-                data-recommendArea2="<?php echo $species->recommendArea ?>" ><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a> 
+                data-VarietyID2="<?php echo $Variety->varietyID ?>"
+                data-commonName2="<?php echo $Variety->commonName ?>"
+                data-scientificName2="<?php echo $Variety->scientificName ?>"    
+                data-varietyName2="<?php echo $Variety->varietyName ?>"
+                data-history2="<?php echo $Variety->history ?>"
+                data-characteristic2="<?php echo $Variety->characteristic ?>"
+                data-productRate2="<?php echo $Variety->productRate ?>"
+                data-feature2="<?php echo $Variety->feature ?>"
+                data-notice2="<?php echo $Variety->notice ?>"
+                data-recommendArea2="<?php echo $Variety->recommendArea ?>" ><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a> 
                 
                 </td>
             </tr>
@@ -188,8 +180,7 @@ if($speciesList != null)
       <div class="modal-body">
         <p>ชื่อสามัญ : <span id="commonName"></span></p>
         <p>ชื่อวิทยาศาสตร์ : <span id="scientificName"></span></p>
-        <p>ชื่อพันธุ์ : <span id="speciesName"></span></p>
-        <p>ชนิดข้าว : <span id="type"></span></p>
+        <p>พันธุ์ข้าว : <span id="varietyName"></span></p>
         <p>ประวัติพันธุ์ข้าว : <span id="history"></span></p>
         <p>ลักษณะประจำพันธุ์ : <span id="characteristic"></span></p>
         <p>ผลผลิต(กก)/ไร่ : <span id="productRate"></span></p>
@@ -218,11 +209,10 @@ if($speciesList != null)
       <div class="modal-body">
         <form >
         <div class="col-md-6">
-          <input type="hidden" id="speciesID2" name="speciesID2">
+          <input type="hidden" id="VarietyID2" name="VarietyID2">
           <label>ชื่อสามัญ </label><input id="commonName2" type="text" name="commonName2" maxlength="70" class="commonName form-control" required >
-          <label>ชื่อวิทยาศาสตร์ </label><input id="scientificName2" type="text" name="scientificName2" maxlength="70" class="scientificName form-control" required >
-          <label>ชื่อพันธุ์ </label><input id="speciesName2" type="text" name="speciesName2" maxlength="70" class="speciesName form-control" required >
-          <label>ชนิดข้าว </label><input id="type2" type="text" name="type2" maxlength="50" class="type form-control" required >
+          <label>ชื่อวิทยาศาสตร์ </label><input id="scientificName2" type="text" name="scientificName2" maxlength="70" class="scientificName form-control" required >         
+          <label>พันธุ์ข้าว </label><input id="varietyName2" type="text" name="varietyName2" maxlength="50" class="varietyName form-control" required >
           <label>ผลผลิต(กก)/ไร่ </label><input id="productRate2" type="number" name="productRate2" class="productRate form-control" required >
           <label>ประวัติพันธุ์ข้าว </label><br/><textarea rows="5" cols="50" class="history form-control" maxlength="200" id="history2" type="text" name="history2" required ></textarea>
           <label>ลักษณะประจำพันธุ์ </label><br/><textarea rows="5" cols="50" class="characteristic form-control" maxlength="200" id="characteristic2" type="text" name="characteristic2" ></textarea>
@@ -233,7 +223,7 @@ if($speciesList != null)
             <label>พื้นที่แนะนำ </label><br/><textarea rows="5" cols="110" class="recommendArea form-control"  maxlength="200" id="recommendArea2" type="text" name="recommendArea2" required ></textarea><br/>
         </div>   
             <input type="hidden" name="controller" value="rice">
-            <button type="submit" name="action" value="updateSpecies" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
+            <button type="submit" name="action" value="updateVariety" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
         </form>
       </div>
 

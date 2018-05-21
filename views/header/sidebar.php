@@ -15,7 +15,7 @@
 				<em class="fa fa-navicon">&nbsp;</em> จัดการข้าว <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="?controller=rice&action=index_riceSpecies">
+					<li><a class="" href="?controller=rice&action=index_riceVariety">
 						<span class="fa fa-arrow-right">&nbsp;</span> จัดการพันธุ์ข้าว
 					</a></li>
 					<li><a class="" href="?controller=rice&action=index_riceDisease">
