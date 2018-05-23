@@ -38,6 +38,9 @@ else
 	<!-- font -->
 	<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet"> 
 	<!-- <script src="js/jquery-1.11.1.min.js"></script> -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
 </head>
 <header >
 		<?php include('views/header/nav.php') ?>
@@ -54,7 +57,15 @@ else
 	<script src="js/custom.js"></script>
 	<script src="js/jquery.form.validator.min.js"></script>
 	<script src="js/security.js"></script>
-	<script src="js/file.js"></script>	
+	<script src="js/file.js"></script>
+	<!-- dataTablefunc -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+ 
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+
+	
+
+	<script src="js/dataTable.js"></script>
 	<script>
     $(document).ready(function() {
 		$("#rice a:contains('จัดการข้าว')").parent().addClass('active');
@@ -62,7 +73,8 @@ else
 		$("#district a:contains('จัดการที่อยู่')").parent().addClass('active');
 		$("#user a:contains('จัดการผู้ใช้')").parent().addClass('active');
         
-    }); //jQuery is loaded
+	}); //jQuery is loaded
+	dataTable('.tabledata');
     </script>
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">

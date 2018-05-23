@@ -1,11 +1,11 @@
 <?php
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$passwd = "";
 	$database = "rice";
 
 	// Create connection
-	$conn = mysqli_connect($servername, $username, $password,$database);
+	$conn = mysqli_connect($servername, $username, $passwd,$database);
 
 	// Check connection
 	if (!$conn) {

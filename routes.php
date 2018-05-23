@@ -38,7 +38,7 @@ if( ($controller=='page'&&($action=='home'||$action=='error'))
 || ($controller == 'dep' && ($action  == 'index_dep' || $action == 'addDep' || $action == 'updateDep' ))
 || ($controller == 'district' && ($action == 'index_district' || $action == 'updateDistrict'))
 || ($controller == 'subdistrict' && ($action == 'index_subdistrict'))
-||  ($controller=='user' && ($action == 'index_userMm')))
+||  ($controller=='user' && ($action == 'index_userMm' || $action == 'addUserByAdmin')))
 {	call($controller,$action);	}
 else
 {	call('page','error'); }
