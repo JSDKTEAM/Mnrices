@@ -17,14 +17,12 @@
         // get data from edit btn
         var pathogenID = $(this).attr('data-pathogenID');
         var commonName = $(this).attr('data-commonName');
-        var scientificName = $(this).attr('data-scientificName');
-        var type = $(this).attr('data-type');
+        var scientificName = $(this).attr('data-scientificName'); 
         var description = $(this).attr('data-description');
         // set value to modal
         $("#pathogenID").val(pathogenID);
         $("#commonName").val(commonName);
         $("#scientificName").val(scientificName);
-        $("#type").val(type);
         $("#description").val(description);
         $(".description").charCounter({limit:200});
         $("#edit_pathogen_modal").modal('show');
@@ -56,8 +54,7 @@
       <div class="modal-body">
         <form action="" method="POST">
             <label>ชื่อสามัญ </label><input type="text" class="form-control" maxlength="70" name="commonName"><br/>
-            <label>ชื่อวิทยาศาสตร์ </label><input type="text" class="form-control" maxlength="70" name="scientificName"><br/>
-            <label>ชนิด </label><input type="text" class="form-control" maxlength="50" name="type"><br/>
+            <label>ชื่อวิทยาศาสตร์ </label><input type="text" class="form-control" maxlength="70" name="scientificName"><br/>            
             <label>รายละเอียด </label><br/><textarea rows="5" cols="50" class="description form-control" maxlength="200" name="description"></textarea>
             <input type="hidden" name="controller" value="rice">
             <hr>
@@ -72,7 +69,6 @@
   <tr>
     <th>ชื่อสามัญ</th>
     <th>ชื่อวิทยาศาสตร์</th>
-    <th>ชนิด</th>
     <th>รายละเอียด</th>
     <th></th>
   </tr>
@@ -84,7 +80,6 @@
           echo "<tr>
                   <td>$pathogen->commonName</td>
                   <td>$pathogen->scientificName</td>
-                  <td>$pathogen->type</td>
                   <td>$pathogen->description</td>
                 ";
       ?>
@@ -92,8 +87,7 @@
           <a class="btn btn-success edit_pathogen"
           data-pathogenID = <?php echo $pathogen->pathogenID ?>
           data-commonName = <?php echo $pathogen->commonName ?>
-          data-scientificName = <?php echo $pathogen->scientificName ?>
-          data-type = <?php echo $pathogen->type?>
+          data-scientificName = <?php echo $pathogen->scientificName ?> 
           data-description = <?php echo $pathogen->description ?>>
           <i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>
         </td>
@@ -120,8 +114,7 @@
         <form action="" method="POST">
         <input type="hidden" id="pathogenID" name="pathogenID">
         <label>ชื่อสามัญ </label><input type="text" id="commonName" class="form-control" maxlength="70" name="commonName"><br/>
-        <label>ชื่อวิทยาศาสตร์ </label><input type="text" id= "scientificName" class="form-control" maxlength="70" name="scientificName"><br/>
-        <label>ชนิด </label><input type="text" id= "type" class="form-control" maxlength="50" name="type"><br/>
+        <label>ชื่อวิทยาศาสตร์ </label><input type="text" id= "scientificName" class="form-control" maxlength="70" name="scientificName"><br/>        
         <label>รายละเอียด </label><br/><textarea id="description" rows="5" cols="50" class="description form-control" maxlength="200" name="description"></textarea>
         <input type="hidden" name="controller" value="rice">
         <hr>

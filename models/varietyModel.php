@@ -1,24 +1,22 @@
 <?php
- class Species
+ class Variety
  {
-     public $speciesID;
+     public $varietyID;
      public $commonName;
      public $scientificName;
-     public $speciesName;
-     public $type;
+     public $varietyName;
      public $history;
      public $characteristic;
      public $productRate;
      public $feature;
      public $notice;
      public $recommendArea;
-     public function __construct($speciesID,$commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
+     public function __construct($varietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
      {
-         $this->speciesID = $speciesID;
+         $this->varietyID = $varietyID;
          $this->commonName = $commonName;
-         $this->scientificName = $scientificName;
-         $this->speciesName = $speciesName;
-         $this->type = $type;
+         $this->scientificName = $scientificName;        
+         $this->varietyName = $varietyName;
          $this->history = $history;
          $this->characteristic = $characteristic;
          $this->productRate = $productRate;
@@ -29,37 +27,37 @@
      public static function getAll($start,$perpage)
      { 
         require('connection_connect.php');
-         $sql = "SELECT * FROM species LIMIT $start,$perpage";
+         $sql = "SELECT * FROM variety LIMIT $start,$perpage";
          $result = DbHelp::query($sql,$conn);
          while($row = DbHelp::fetch($result))
          {
-            $speciesID = $row['speciesID'];
+            $varietyID = $row['varietyID'];
             $commonName = $row['commonName'];
             $scientificName = $row['scientificName'];
-            $type = $row['type'];
+            $varietyName = $row['varietyName'];
             $history = $row['history'];
             $characteristic = $row['characteristic'];
             $productRate = $row['productRate'];
             $feature = $row['feature'];
             $notice = $row['notice'];
             $recommendArea = $row['recommendArea'];
-            $speciesList[] = new Species($speciesID,$commonName,$scientificName,$scientificName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+            $varietyList[] = new Variety($varietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
          }
          require('connection_close.php');
-         return $speciesList;
+         return $varietyList;
      }
-     public static function get($speciesID)
+     public static function get($varietyID)
      {
         require('connection_connect.php');
-        $sql = "SELECT * FROM species WHERE speciesID = $speciesID";
+        $sql = "SELECT * FROM variety WHERE varietyID = $varietyID";
         $result = DbHelp::query($sql,$conn);
         if($result)
         {
             $row = DbHelp::fetch($result);
-            $speciesID = $row['speciesID'];
+            $varietyID = $row['varietyID'];
             $commonName = $row['commonName'];
             $scientificName = $row['scientificName'];
-            $type = $row['type'];
+            $varietyName = $row['varietyName'];
             $history = $row['history'];
             $characteristic = $row['characteristic'];
             $productRate = $row['productRate'];
@@ -68,39 +66,38 @@
             $recommendArea = $row['recommendArea'];
         }
         require('connection_close.php');
-        return new Species($speciesID,$commonName,$scientificName,$scientificName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+        return new Variety($varietyID,$commonName,$scientificName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
      }
-     public static function insert($commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
+     public static function insert($commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
      {
         require('connection_connect.php');
-        $sql = "INSERT INTO species(commonName,
-                scientificName,
-                speciesName,
-                type,
+        $sql = "INSERT INTO variety(commonName,
+                scientificName,               
+                varietyName,
                 history,
                 characteristic,
                 productRate,
                 feature,
                 notice,
-                recommendArea) VALUES('$commonName','$scientificName','$speciesName','$type','$history','$characteristic','$productRate','$feature','$notice','$recommendArea')";
+                recommendArea) VALUES('$commonName','$scientificName','$varietyName','$history','$characteristic','$productRate','$feature','$notice','$recommendArea')";
         $result = 0;
         $result = DbHelp::query($sql,$conn);
         require('connection_close.php');
         return $result;
      }
-     public static function update($speciesID,$commonName,$scientificName,$speciesName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
+     public static function update($varietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
      {
         require('connection_connect.php');
-        $sql = "UPDATE species SET
+        $sql = "UPDATE variety SET
                 commonName = '$commonName',
                 scientificName = '$scientificName',
-                type = '$type',
+                varietyName = '$varietyName',
                 history = '$history',
                 characteristic = '$characteristic',
                 productRate = '$productRate',
                 feature = '$feature',
                 notice = '$notice',
-                recommendArea = '$recommendArea' WHERE speciesID = $speciesID";
+                recommendArea = '$recommendArea' WHERE varietyID = $varietyID";
         $result = 0;
         $result = DbHelp::query($sql,$conn);
         require('connection_close.php');
@@ -110,10 +107,10 @@
      {
         require('connection_connect.php');
 
-        $sql = "SELECT * FROM species WHERE speciesID LIKE '%$key%' 
+        $sql = "SELECT * FROM variety WHERE varietyID LIKE '%$key%' 
         OR commonName LIKE '%$key%' 
         OR scientificName LIKE '%$key%'
-        OR type LIKE '%$key%'
+        OR varietyName LIKE '%$key%'
         OR history LIKE '%$key%' 
         OR characteristic LIKE '%$key%' 
         OR productRate LIKE '%$key%' 
@@ -126,34 +123,34 @@
 
         while($row = DbHelp::fetch($result))
         {
-           $speciesID = $row['speciesID'];
+           $varietyID = $row['varietyID'];
            $commonName = $row['commonName'];
            $scientificName = $row['scientificName'];
-           $type = $row['type'];
+           $varietyName = $row['varietyName'];
            $history = $row['history'];
            $characteristic = $row['characteristic'];
            $productRate = $row['productRate'];
            $feature = $row['feature'];
            $notice = $row['notice'];
            $recommendArea = $row['recommendArea'];
-           $speciesList[] = new Species($speciesID,$commonName,$scientificName,$scientificName,$type,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+           $varietyList[] = new Variety($varietyID,$commonName,$scientificName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
         }
         require('connection_close.php');
 
         if(DbHelp::countRow($result) < 1)
         {
-            return $speciesList = null;
+            return $varietyList = null;
         }
-        return $speciesList;
+        return $varietyList;
      }
 
      public static function countRow($key)
      {
          require("connection_connect.php");
-         $sql = "SELECT * FROM species WHERE speciesID LIKE '%$key%' 
+         $sql = "SELECT * FROM variety WHERE varietyID LIKE '%$key%' 
          OR commonName LIKE '%$key%' 
          OR scientificName LIKE '%$key%'
-         OR type LIKE '%$key%'
+         OR varietyName LIKE '%$key%'
          OR history LIKE '%$key%' 
          OR characteristic LIKE '%$key%' 
          OR productRate LIKE '%$key%' 
@@ -170,7 +167,7 @@
      public static function countRowAll()
      {
          require("connection_connect.php");
-         $sql = "SELECT * FROM species ";
+         $sql = "SELECT * FROM variety ";
          $result = DbHelp::query($sql,$conn);
          $total = DbHelp::countRow($result);
          $total_page = ceil($total / 10);

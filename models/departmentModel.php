@@ -2,12 +2,10 @@
 class Department{
     public $depID;
     public $depName;
-    public $depWMLabel;
-    public function __construct($depID,$depName,$depWMLabel)
+    public function __construct($depID,$depName)
     {
         $this->depID = $depID;
         $this->depName = $depName;
-        $this->depWMLabel = $depWMLabel;
     }
     public static function get($depID)
     {
@@ -19,9 +17,8 @@ class Department{
         //$my_row = mysqli_fetch_array($result);
         $depID= $my_row['depID'];
         $depName = $my_row['depName'];
-        $depWMLabel = $my_row['depWMLabel'];
         require("connection_close.php");
-        return new Department($depID,$depName,$depWMLabel);
+        return new Department($depID,$depName);
     }
     public static function getAll()
     {
@@ -33,25 +30,24 @@ class Department{
         {
             $depID= $my_row['depID'];
             $depName = $my_row['depName'];
-            $depWMLabel = $my_row['depWMLabel'];
-            $departmentList[]= new Department($depID,$depName,$depWMLabel);
+            $departmentList[]= new Department($depID,$depName);
         }
         require("connection_close.php");
         return $departmentList;
     }
-    public static function insert($depName,$depWMLabel)
+    public static function insert($depName)
     {
         require("connection_connect.php");
-        $sql = "INSERT INTO department (depID,depName,depWMLabel)VALUES ('','$depName','$depWMLabel')";
+        $sql = "INSERT INTO department (depID,depName)VALUES ('','$depName')";
         $result = DbHelp::query($sql,$conn);
         //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
         require("connection_close.php");
         return $result;
     }
-    public static function update($depID,$depName,$depWMLabel)
+    public static function update($depID,$depName)
     { 
         require("connection_connect.php");
-        $sql = "UPDATE department SET depName = '$depName',depWMLabel = '$depWMLabel' WHERE depID = '$depID' ";
+        $sql = "UPDATE department SET depName = '$depName' WHERE depID = '$depID' ";
         //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
         $result = DbHelp::query($sql,$conn);
         require("connection_close.php");
