@@ -174,6 +174,14 @@
          require("connection_close.php");
          return $total_page;
      }
+     public static function delete($varietyID)
+     {
+        require("connection_connect.php");
+        $sql = "DELETE FROM variety WHERE varietyID = $varietyID";
+        $result = DbHelp::query($sql,$conn);
+        require("connection_close.php");
+        return $result;
+     }
 
  } 
 ?>

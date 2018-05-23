@@ -1,0 +1,7 @@
+{
+    "servername": "localhost",
+    "username": "root",
+    "password": "",
+    "database": "rice",
+    "agreement_path": "agreement/term_and_agreement.pdf"
+}

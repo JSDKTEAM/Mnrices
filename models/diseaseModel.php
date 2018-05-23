@@ -71,12 +71,20 @@
      {
         require('connection_connect.php');
         $sql = "UPDATE disease SET name = '$name',location = '$location', symptom = '$symptom',dispersed = '$dispersed',prevention = '$prevention' WHERE diseaseID = $diseaseID";
+        echo $sql;
         $result = 0;
         $result = DbHelp::query($sql,$conn);
         require('connection_close.php');
         return $result;
      }
-
+     public static function deleteDisease($diseaseID)
+     {
+        require('connection_connect.php');
+        $sql = "DELETE FROM disease WHERE diseaseID = $diseaseID";
+        $result = DbHelp::query($sql,$conn);
+        require('connection_close.php');
+        return $result;
+     }
      public static function search_dis($key,$start,$perpage)
      {
         require('connection_connect.php');

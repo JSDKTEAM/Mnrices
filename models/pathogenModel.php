@@ -51,9 +51,10 @@
         public static function insert($commonName,$scientificName,$description)
         {
             require('connection_connect.php');
-            $sql = "INSERT INTO pathogen(commonName,scientificName,`description`) VALUES('$commonName','$scientificName',,'$description')";
+            $sql = "INSERT INTO pathogen(commonName,scientificName,`description`) VALUES('$commonName','$scientificName','$description')";
             $result = 0;
             $result = DbHelp::query($sql,$conn);
+            echo $sql;
             require('connection_close.php');
             return $result;
         }
@@ -114,8 +115,14 @@
             {
                 return $pathogenList=null;
             }
-        
-           
+        }
+        public static function deletePathogen($pathogenID)
+        {
+            require('connection_connect.php');
+            $sql = "DELETE FROM pathogen WHERE pathogenID = $pathogenID";
+            $result = DbHelp::query($sql,$conn);
+            return $result;
+            require('connection_close.php');
         }
     } 
 ?>

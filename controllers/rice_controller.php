@@ -38,6 +38,11 @@
             $check = Disease::update($diseaseID,$name,$location,$symptom,$dispersed,$prevention);
 			header('location:index.php?controller=rice&action=index_riceDisease');
         }
+        public function deleteDisease()
+        {
+            $check = Disease::deleteDisease($_POST['diseaseID']);
+            header('location:index.php?controller=rice&action=index_riceDisease');
+        }
         public function index_ricePathogen()
         {
             $perpage = 10;
@@ -58,9 +63,8 @@
         {
             $commonName = $_REQUEST['commonName'];
             $scientificName = $_REQUEST['scientificName'];
-            $varietyName = $_REQUEST['varietyName'];
             $description = $_REQUEST['description'];
-            $check = Pathogen::insert($commonName,$scientificName,$varietyName,$description);
+            $check = Pathogen::insert($commonName,$scientificName,$description);
             header('location:index.php?controller=rice&action=index_ricePathogen');
         }
         public function updatePathogen()
@@ -68,10 +72,14 @@
             $pathogenID = $_REQUEST['pathogenID'];
             $commonName = $_REQUEST['commonName'];
             $scientificName = $_REQUEST['scientificName'];
-            $varietyName = $_REQUEST['varietyName'];
             $description = $_REQUEST['description'];
-            $check = Pathogen::update($pathogenID,$commonName,$scientificName,$varietyName,$description);
+            $check = Pathogen::update($pathogenID,$commonName,$scientificName,$description);
 			header('location:index.php?controller=rice&action=index_ricePathogen');
+        }
+        public function deletePathogen()
+        {
+            $check = Pathogen::deletePathogen($_POST['pathogenID']);
+            header('location:index.php?controller=rice&action=index_ricePathogen');
         }
         public function searchPathogen()
         {
@@ -136,6 +144,14 @@
             $recommendArea = $_REQUEST['recommendArea2'];
             $result = Variety::update($VarietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
 
+            if($result)
+            {
+				header('location:index.php?controller=rice&action=index_riceVariety');
+            }
+        }
+        public function deleteVariety()
+        {
+            $result = Variety::delete($_REQUEST['varietyID']);
             if($result)
             {
 				header('location:index.php?controller=rice&action=index_riceVariety');
@@ -213,6 +229,11 @@
             $pathogenID = $_REQUEST['pathogenID'];
             $check = Dp::update($diseaseID,$pathogenID);
 			header('location:index.php?controller=rice&action=index_riceDiseasePathogen');
+        }
+
+        public function getAjaxProvince()
+        {
+            Province::getAjaxProvince($_GET['provinceID']);
         }
     }
 ?>

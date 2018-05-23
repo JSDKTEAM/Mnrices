@@ -52,6 +52,7 @@
             $sql = "INSERT INTO `diseasepathogen`(`diseaseID`, `pathogenID`) VALUES($diseaseID,$pathogenID)";
             //$result = mysqli_query($conn,$sql);
             $result = DbHelp::query($sql,$conn);
+            echo $sql;
             require('connection_close.php');
             return $result;
         }
