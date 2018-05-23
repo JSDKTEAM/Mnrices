@@ -52,6 +52,7 @@
                     $userName = $row['userName'];
                     $firstName = $row['firstName'];
                     $lastname = $row['lastName'];
+                    $password = $row['passwordUser'];
                     $phone = $row['phone'];
                     $email = $row['email'];
                     $statusUser = $row['statusUser'];

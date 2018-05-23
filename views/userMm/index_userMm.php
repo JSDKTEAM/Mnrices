@@ -77,24 +77,20 @@
     </div>
   </div>
 </div>
-<br/><br/>
-<form action="">
-    <label for="">ค้นหา<input type="text" name="key" class="form-control"></label>
-</form>
-<br/>
-<div class="panel panel-default">
-	<div class="panel-heading">ผู้ใช้</div>
-		<div class="panel-body">
+</br></br>
       <table class="table table-bordered tabledata">
-        <tr>
-          <th>Username</th>
-          <th>ชื่อ</th>
-          <th>นามสุกล</th>
-          <th>เบอร์</th>
-          <th>อีเมล์</th>
-          <th>หน่วยงาน</th>
-        </tr>
-        <tr>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>ชื่อ</th>
+            <th>นามสุกล</th>
+            <th>เบอร์</th>
+            <th>อีเมล์</th>
+            <th>หน่วยงาน</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
           <?php //print_r($user_list);
           foreach($user_list as $key=>$value)
           {
@@ -116,13 +112,11 @@
           <td>
           </td>
           </tr>
-          <?php
-          }?>
+          <?php }  ?>
         </tr>
+        </tbody>
       </table>
-    </div>
-  </div>
-</div>
+
 
 <script>
  $.validate({

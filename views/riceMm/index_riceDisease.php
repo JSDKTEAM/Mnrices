@@ -28,15 +28,6 @@
 <!-- Button to Open the Modal -->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">เพิ่มโรคข้าว</button>
 
- <form>
- <br/>
-<label> ค้นหา <input type="text" class = "form-control"  name="key1" id ="key1"></label>
-<input type="hidden" name="controller" value="rice">
-        <button type="submit" class="btn btn-success "   name="action" value="search_dis">ค้นหา</button>
-
-</form>
-
-
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -76,14 +67,18 @@
 <br/><br/>
 
 
-<table class="table table-bordered">
+<table class="table table-bordered tabledata">
+  <thead>
   <tr>
     <th>ชื่อ</th>
     <th>พื้นที่ที่พบ</th>
     <th>ลักษณะอาการ</th>
     <th>การแพร่ระบาด</th>
     <th>การป้องกัน</th>
+    <th></th>
   </tr>
+  </thead>
+  <tbody>
   <?php
             if($diseaseList != null)
             {
@@ -108,14 +103,17 @@
              data-diseaseSymptom="<?php echo $disease->symptom ?>"
              data-diseaseDispersed="<?php echo $disease->dispersed ?>"
              data-diseasePrevention="<?php echo $disease->prevention ?>"><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>
-            <a class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</a>
+            <a 
+            data-diseaseID="<?php echo $disease->diseaseID ?>"
+             data-diseaseName="<?php echo $disease->name ?>"
+            class="btn btn-danger delete_disease"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</a>
         </td>
         </tr>
     <?php      }
             } ?>
+    </tbody>
 </table>
 
-<?php  include('views/pagination/pagination.php');?>
 <!-- The Modal -->
 <div class="modal fade" id="edit_disease_modal">
   <div class="modal-dialog" style="width:980px;">
@@ -149,6 +147,46 @@
       </div>
         </form>
       </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('.delete_disease').click(function(){
+        // get data from edit btn
+        // get data from edit btn
+        var diseaseID = $(this).attr('data-diseaseID');
+        var diseaseName = $(this).attr('data-diseaseName');
+        // set value to modal
+        $("#diseaseID-de").val(diseaseID);
+        $("#diseaseName-de").html("ชื่อโรค : "+diseaseName);
+        $("#delete_disease_modal").modal('show');
+        });
+    });
+</script>
+<!-- ลบข้อมูล -->
+<div class="modal fade" id="delete_disease_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">ยืนการลบข้อมูล</h2>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="POST">
+          <input type="hidden" id="diseaseID-de" name="diseaseID">    
+          <h4 id="diseaseName-de"></h4>  
+          <hr>
+          <input type="hidden" name="controller" value="rice">
+          <button type="submit" name="action" value="deleteDisease" class="btn btn-danger btn-block">ยืนยันการลบ</button>
+
+        </form>
+      </div>
+
     </div>
   </div>
 </div>

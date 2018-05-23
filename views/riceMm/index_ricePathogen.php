@@ -35,11 +35,7 @@
   เพิ่มเชื้อโรคข้าว
 </button>
 <br><br>
-<form method="GET">
-    <label for="">ค้นหา<input type="text" name="key" class="form-control" required></label>
-    <input type="hidden" name="controller" value="rice">
-    <button type="submit" name= "action" value="searchPathogen" class="btn btn-success">ค้นหา</button>
-</form>
+
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog" >
@@ -64,14 +60,17 @@
     </div>
   </div>
 </div>
-<br/><br/>
-<table class="table table-bordered">
+<br/>
+<table class="table table-bordered tabledata">
+  <thead>
   <tr>
     <th>ชื่อสามัญ</th>
     <th>ชื่อวิทยาศาสตร์</th>
     <th>รายละเอียด</th>
     <th></th>
   </tr>
+  </thead>
+  <tbody>
     <?php
       if($pathogen_list!=null)
       {
@@ -90,12 +89,17 @@
           data-scientificName = <?php echo $pathogen->scientificName ?> 
           data-description = <?php echo $pathogen->description ?>>
           <i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>
+          <a 
+          data-pathogenID = <?php echo $pathogen->pathogenID ?>
+          data-commonName = <?php echo $pathogen->commonName ?>
+          class="btn btn-danger delete_pathogen"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</a>
         </td>
        </tr>         
      <?php 
       } 
     }
-   ?>
+     ?>
+     </tbody>
 </table>
 <?php  include('views/pagination/pagination.php');?>
 <!-- The Modal -->
@@ -119,6 +123,46 @@
         <input type="hidden" name="controller" value="rice">
         <hr>
           <button type="submit" name="action" value="updatePathogen" class="btn btn-success btn-block">ยืนยันการแก้ไข</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('.delete_pathogen').click(function(){
+        // get data from edit btn
+        var pathogenID = $(this).attr('data-pathogenID');
+        var commonName = $(this).attr('data-commonName');
+        // set value to modal
+        $("#pathogenID-de").val(pathogenID);
+        $("#commonName-de").html("ชื่อสามัญ : "+commonName);
+
+        $("#delete_pathogen_modal").modal('show');
+        });
+    });
+</script>
+<!-- ลบข้อมูล -->
+<div class="modal fade" id="delete_pathogen_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">ยืนการลบข้อมูล</h2>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="POST">
+          <input type="hidden" id="pathogenID-de" name="pathogenID">    
+          <h4 id="commonName-de"></h4>  
+          <hr>
+          <input type="hidden" name="controller" value="rice">
+          <button type="submit" name="action" value="deletePathogen" class="btn btn-danger btn-block">ยืนยันการลบ</button>
+
         </form>
       </div>
 

@@ -39,15 +39,17 @@
     <button type="submit" class="btn btn-success">เพิ่มอำเภอ</button>
 </form>
 <br/><br/>
-<div class="panel panel-default">
-	<div class="panel-heading">อำเภอ</div>
-		<div class="panel-body">
-            <table class="table table-bordered">
+
+	
+            <table class="table table-bordered tabledata">
+                <thead>
                 <tr>
                     <th>อำเภอ</th>
                     <th>จังหวัด</th>
                     <th></th>
                 </tr>
+                </thead>
+                <tbody>
                 <?php 
                     foreach($district_list as $district)
                     {
@@ -64,10 +66,9 @@
                     </td>
                     </tr>
             <?php   } ?>
+                </tbody>
             </table>
-        </div>
-    </div>
-</div>
+
 
 <!-- The Modal -->
 <div class="modal fade" id="edit_district_modal">

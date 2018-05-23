@@ -10,6 +10,7 @@
         public static function fetch($result)
         {
             $result = mysqli_fetch_array($result);
+
             return $result;
         }
         public static function countRow($result)

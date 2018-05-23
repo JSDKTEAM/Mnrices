@@ -1,8 +1,10 @@
 <?php
-	$servername = "localhost";
-	$username = "root";
-	$passwd = "";
-	$database = "rice";
+	$string = file_get_contents("config.json");
+	$json_a = json_decode($string, true);
+	$servername = $json_a['servername'];
+	$username = $json_a['username'];
+	$passwd = $json_a['password'];
+	$database = $json_a['database'];
 
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $passwd,$database);

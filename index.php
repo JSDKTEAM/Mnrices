@@ -1,6 +1,15 @@
 <?php 
 ob_start();
-if(isset($_REQUEST['controller'])&&isset($_REQUEST['action']))
+function isAjax() {
+	return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower(
+		$_SERVER['HTTP_X_REQUESTED_WITH']
+	) == 'xmlhttprequest';
+}
+if(isAjax() )
+{
+	ob_start();
+}
+if((isset($_REQUEST['controller'])&&isset($_REQUEST['action'])) || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
 {
 	$controller = $_REQUEST['controller'];
 	$action = $_REQUEST['action'];
@@ -23,8 +32,7 @@ else
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
-	<link href="css/validator.css" rel="stylesheet">
-
+	<link href="css/validator.css" rel="stylesheet"> 
 
 	 <!-- sweetalert -->
 	 <script src="sweetalert-master/dist/sweetalert.min.js"></script>
@@ -40,7 +48,13 @@ else
 	<!-- <script src="js/jquery-1.11.1.min.js"></script> -->
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+	<style>
+	body{
+		margin:0;
+		font-family:Kanit;
+		background-color:#EBEBEB;
+	}
+	</style>
 </head>
 <header >
 		<?php include('views/header/nav.php') ?>
@@ -59,10 +73,12 @@ else
 	<script src="js/security.js"></script>
 	<script src="js/file.js"></script>
 	<!-- dataTablefunc -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
- 
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
 
+ 
+	
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 	
 
 	<script src="js/dataTable.js"></script>
@@ -80,9 +96,12 @@ else
 		<div class="row">
 			<div class="col-lg-12">
 				<?php require_once("routes.php"); ?>
+				<?php if(isAjax() ){ob_start();}?>	
 			</div>
+
 		</div><!--/.row-->
 
 	</div>	<!--/.main-->
 </body>
 </html>
+<?php if(isAjax() ){ob_end_clean();}?>	

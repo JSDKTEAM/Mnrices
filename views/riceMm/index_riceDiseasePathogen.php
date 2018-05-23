@@ -97,12 +97,16 @@ $('input[list]').change('input', function(e) {
         });
     });
 </script>
-<table class="table table-bordered">
+<table class="table table-bordered tabledata">
+            <thead>
             <tr>
                 <th>ชื่อโรค</th>
                 <th>ชื่อเชื้อ</th>
                 <th></th>
             </tr>
+            </thead>
+            <tbody>
+            
             <?php
                 $i = 0;
                 foreach($dp_list as $dp)
@@ -153,6 +157,7 @@ $('input[list]').change('input', function(e) {
                     </td>
                     </tr>
         <?php  $i++; } ?> 
+        </tbody>
 </table>
 
 <!-- The Modal Detail -->

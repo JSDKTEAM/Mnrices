@@ -59,6 +59,7 @@ class Department{
         $sql = "DELETE FROM department WHERE depID = '$depID'";
         //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
         $result = DbHelp::query($sql,$conn);
+        return $result;
         require("connection_close.php");
     }
 }

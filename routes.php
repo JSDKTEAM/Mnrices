@@ -11,6 +11,7 @@ function call($controller,$action)
 							require_once('models/varietyModel.php');
 							require_once('models/pathogenModel.php');
 							require_once('models/disease_pathogenModel.php');
+							require_once('models/provinceModel.php');
 							$controller = new RiceController();
 							break;
 		case "dep":   		require_once('models/departmentModel.php');
@@ -34,8 +35,8 @@ function call($controller,$action)
 }
 
 if( ($controller=='page'&&($action=='home'||$action=='error'))
-||  ($controller=='rice' && ($action == 'index_riceVariety'|| $action == 'addVariety'|| $action == 'updateVariety' || $action == 'search_spec' ||  $action == 'index_riceDisease' || $action == 'index_ricePathogen' || $action == 'addPathogen' || $action =='updatePathogen' ||$action=='searchPathogen' ||$action=='addDisease'||$action=='updateDisease' || $action == 'search_dis' || $action == 'index_riceDiseasePathogen' || $action == 'addDiseasePathogen'))
-|| ($controller == 'dep' && ($action  == 'index_dep' || $action == 'addDep' || $action == 'updateDep' ))
+||  ($controller=='rice' && ($action == 'index_riceVariety'|| $action == 'addVariety'|| $action == 'updateVariety' || $action == 'search_spec' ||  $action == 'index_riceDisease' || $action == 'index_ricePathogen' || $action == 'addPathogen' || $action =='updatePathogen' || $action == 'deletePathogen' ||$action=='searchPathogen' ||$action=='addDisease'||$action=='updateDisease' || $action == 'deleteDisease'|| $action == 'search_dis' || $action == 'index_riceDiseasePathogen' || $action == 'addDiseasePathogen' || $action == 'deleteVariety' || $action == 'getAjaxProvince'))
+|| ($controller == 'dep' && ($action  == 'index_dep' || $action == 'addDep' || $action == 'updateDep' || $action == 'deletedep'))
 || ($controller == 'district' && ($action == 'index_district' || $action == 'updateDistrict'))
 || ($controller == 'subdistrict' && ($action == 'index_subdistrict'))
 ||  ($controller=='user' && ($action == 'index_userMm' || $action == 'addUserByAdmin')))

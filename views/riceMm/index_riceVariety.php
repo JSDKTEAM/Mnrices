@@ -67,13 +67,7 @@
 <!-- Button to Open the Modal -->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"> เพิ่มพันธุ์ข้าว </button>
 
- <form>
- <br/>
-<label> ค้นหา <input type="text" class = "form-control"  name="key" id ="key"></label>
-<input type="hidden" name="controller" value="rice">
-        <button type="submit" class="btn btn-success"   name="action" value="search_spec">ค้นหา</button>
 
-</form>
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog" style="width:980px;">
@@ -113,7 +107,8 @@
 </div>
 <br/><br/>
 
-<table class="table table-bordered">
+<table class="table table-bordered tabledata">
+  <thead>
   <tr>
     <th>ชื่อสามัญ</th>
     <th>ชื่อวิทยาศาสตร์</th>
@@ -121,6 +116,8 @@
 
     <th></th>
   </tr>
+  </thead>
+  <tbody>
 
     <?php 
 
@@ -158,11 +155,17 @@ if($VarietyList != null)
                 data-feature2="<?php echo $Variety->feature ?>"
                 data-notice2="<?php echo $Variety->notice ?>"
                 data-recommendArea2="<?php echo $Variety->recommendArea ?>" ><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a> 
+
+                <a  class="btn btn-danger delete_spec"
+                data-Variety="<?php echo $Variety->varietyID ?>"
+                data-commonName ="<?php echo $Variety->commonName ?>">
+                <i class="fa fa-trash" aria-hidden="true"></i> ลบ</a> 
                 
                 </td>
             </tr>
 
   <?php  }} ?>
+  </tbody>
 </table>
 <?php  include('views/pagination/pagination.php');?>
 
@@ -237,3 +240,41 @@ $(".characteristic").charCounter({limit:200});
 $(".feature").charCounter({limit:200});
 $(".recommendArea").charCounter({limit:200});
 </script>
+<script>
+    $(document).ready(function(){
+        $('.delete_spec').click(function(){
+        // get data from edit btn
+        var VarietyID = $(this).attr('data-Variety');
+        var commonName = $(this).attr('data-commonName');
+        $("#variety-delete").html('ชื่อสามัญ : '+commonName)
+        $("#varietyID").val(VarietyID);
+        $("#delete_var_modal").modal('show');
+        });
+    });
+</script>
+<!-- ลบข้อมูล -->
+<div class="modal fade" id="delete_var_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">ยืนการลบข้อมูล</h2>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="POST">
+          <input type="hidden" id="varietyID" name="varietyID">    
+          <h4 id="variety-delete"></h4>  
+          <hr>
+          <input type="hidden" name="controller" value="rice">
+          <button type="submit" name="action" value="deleteVariety" class="btn btn-danger btn-block">ยืนยันการลบ</button>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

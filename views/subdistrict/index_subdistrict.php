@@ -21,26 +21,35 @@
 <script type="text/javascript">
     jQuery(function($) {
         jQuery('body').on('change','#province',function(){
+            $("#district").empty();
             jQuery.ajax({
-                'type':'POST',
-                'url':'http://localhost/rice/views/register/district.php',
+                'type':'GET',
+                'url':'index.php?controller=rice&action=getAjaxProvince',
                 'cache':false,
-                'data':{province:jQuery(this).val()},
-                'success':function(html){
-                    jQuery("#district").html(html);
+                'data':{provinceID:jQuery(this).val()},
+                'success':function(data){
+                    for(var i  in data)
+                    {
+                        $("#district").append("<option value='"+data[i].provinceID+"'>"+data[i].districtName+"</option")
+                    }
+                    //jQuery("#district").html(html);
+                },
+                'error':function(data)
+                {
+                    console.log(data);
                 }
             });
             return false;
         });
-         jQuery('body').on('change','#district',function(){
+        /* jQuery('body').on('change','#district',function(){
             jQuery.ajax({
                 'type':'POST',
-                'url':'http://localhost/rice/views/register/subdistrict.php',
+                'url':'views/subdistrict/subdistrict.php',
                 'cache':false,
                 'data':{district:jQuery(this).val()},
             });
             return false;
-        });
+        });*/
     });
 </script>
     <h1>จัดการตำบล</h1>
@@ -63,13 +72,16 @@
         <input type="submit" value="เพิ่มตำบล" class="btn btn-success">
     </form>
     <br/><br/>
-    <table class="table table-bordered">
+    <table class="table table-bordered tabledata">
+            <thead>
             <tr>
                 <th>อำเภอ</th>
                 <th>ตำบล</th>
                 <th>จังหวัด</th>
                 <th></th>
             </tr>
+            </thead>
+            <tbody>
             <?php
                 foreach($subdistrict_list as $subdistrict)
                 {
@@ -90,9 +102,8 @@
                 </td>
                 </tr>
         <?php   } ?>
-
+            </tbody>
     </table>
-    <?php  include('views/pagination/pagination.php');?>
 
 <!-- The Modal -->
 <div class="modal fade" id="edit_sub_modal">
