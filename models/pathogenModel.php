@@ -1,4 +1,5 @@
 <?php
+require_once("connection_connect.php");
     class Pathogen
     {
         public $pathogenID;
@@ -12,19 +13,13 @@
             $this->scientificName = $scientificName;
             $this->description = $description;
         }
-        public static function getAll($start,$perpage)
+        public static function getAll()
         {
-            require('connection_connect.php');
-            if($start == "" && $perpage == "")
-            {
-                $sql = "SELECT * FROM pathogen ORDER BY commonName";
-            }
-            else
-            {
-                $sql = "SELECT * FROM pathogen ORDER BY commonName LIMIT $start,$perpage";
-            }
-            $result = DbHelp::query($sql,$conn);
-            while($row = DbHelp::fetch($result))
+            $con = conDb::getInstance();
+            $sql = "SELECT * FROM pathogen ORDER BY commonName";
+            $stmt = $con->query($sql);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach($result as $key=>$row)
             {
                 $pathogenID = $row['pathogenID'];
                 $commonName = $row['commonName'];
@@ -32,97 +27,51 @@
                 $description = $row['description'];
                 $pathogenList[] = new Pathogen($pathogenID,$commonName,$scientificName,$description);
             }
-            require('connection_close.php');
+           
             return $pathogenList;
         }
         public static function get($pathogenID)
         {
-            require('connection_connect.php');
+            $con = conDb::getInstance();
             $sql = "SELECT * FROM pathogen WHERE pathogenID = $pathogenID";
-            $result = DbHelp::query($sql,$conn);
-            $row = DbHelp::fetch($result);
+            $stmt = $con->query($sql);
+            $row = $stmt->fetch();
             $pathogenID = $row['pathogenID'];
             $commonName = $row['commonName'];
             $scientificName = $row['scientificName'];            
             $description = $row['description'];
-            require('connection_close.php');
-            return new Pathogen($pathogenID,$commonName,$scientificName,$description);;
+           
+            return new Pathogen($pathogenID,$commonName,$scientificName,$description);
         }
         public static function insert($commonName,$scientificName,$description)
         {
-            require('connection_connect.php');
-            $sql = "INSERT INTO pathogen(commonName,scientificName,`description`) VALUES('$commonName','$scientificName','$description')";
-            $result = 0;
-            $result = DbHelp::query($sql,$conn);
-            echo $sql;
-            require('connection_close.php');
-            return $result;
+            $con = conDb::getInstance();
+            $sql = "INSERT INTO pathogen(commonName,scientificName,`description`) VALUES(?,?,?)";
+            $stmt = $con->prepare($sql);
+            $check = $stmt->execute([$commonName,$scientificName,$description]);   
+            return $check;
         }
         public static function update($pathogenID,$commonName,$scientificName,$description)
         {
-            require('connection_connect.php');
+            $con = conDb::getInstance();
             $sql = "UPDATE pathogen 
-                    SET pathogenID = $pathogenID , 
-                    commonName = '$commonName' ,
-                    scientificName = '$scientificName' ,  
-                    `description` = '$description' 
-                    WHERE pathogenID = $pathogenID";
-            $result = 0;
-            $result = DbHelp::query($sql,$conn);
-            require('connection_close.php');
-            return $result;
-        }
-        public static function countRow($key)
-        {
-            require("connection_connect.php");
-            $sql = "SELECT * FROM pathogen WHERE commonName LIKE '%$key%' OR scientificName LIKE '%$key%'  ";
-            $result = DbHelp::query($sql,$conn);
-            $total = DbHelp::countRow($result);
-            $total_page = ceil(($total / 10));
-            require("connection_close.php");
-            return $total_page;
-        }
-        public static function countRowAll()
-        {
-            require("connection_connect.php");
-            $sql = "SELECT * FROM pathogen WHERE commonName";
-            $result = DbHelp::query($sql,$conn);
-            $total = DbHelp::countRow($result);
-            $total_page = ceil(($total / 10));
-            require("connection_close.php");
-            return $total_page;
-        }
-        public static function search($key,$start,$perpage)
-        {
-            require('connection_connect.php');
-            $sql = "SELECT * FROM pathogen WHERE commonName LIKE '%$key%' OR scientificName LIKE '%$key%' 
-            ORDER BY commonName LIMIT $start,$perpage ";
-            $result = DbHelp::query($sql,$conn);
-            if(DbHelp::countRow($result)>0)
-            {
-                while($row = DbHelp::fetch($result))
-                {
-                    $pathogenID = $row['pathogenID'];
-                    $commonName = $row['commonName'];
-                    $scientificName = $row['scientificName'];                    
-                    $description = $row['description'];
-                    $pathogenList[] = new Pathogen($pathogenID,$commonName,$scientificName,$description);
-                }
-                require('connection_close.php');
-                return $pathogenList;
-            }
-            else
-            {
-                return $pathogenList=null;
-            }
+                    SET
+                    commonName = ?,
+                    scientificName = ?,  
+                    `description` = ? 
+                    WHERE pathogenID = ?";
+            $stmt = $con->prepare($sql);
+            $check = $stmt->execute([$commonName,$scientificName,$description,$pathogenID]);    
+            return $check;
         }
         public static function deletePathogen($pathogenID)
         {
-            require('connection_connect.php');
-            $sql = "DELETE FROM pathogen WHERE pathogenID = $pathogenID";
-            $result = DbHelp::query($sql,$conn);
-            return $result;
-            require('connection_close.php');
+            $con = conDb::getInstance();
+            $sql = "DELETE FROM pathogen WHERE pathogenID = ?";
+            $stmt = $con->prepare($sql);
+            $check = $stmt->execute([$pathogenID]);    
+            return $check;
+            
         }
     } 
 ?>

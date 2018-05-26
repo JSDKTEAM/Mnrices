@@ -12,30 +12,17 @@
             $this->pathogenID = $pathogenID;
             $this->commonName = $commonName;
         }
-        public static function countRow()
+        public static function getAll()
         {
-            require('connection_connect.php');
-            $sql = "SELECT disease.diseaseID,disease.name,pathogen.pathogenID,pathogen.commonName FROM diseasepathogen
-                    RIGHT JOIN disease ON disease.diseaseID = diseasepathogen.diseaseID
-                    INNER JOIN pathogen ON pathogen.pathogenID = diseasepathogen.pathogenID ORDER BY disease.name,pathogen.commonName";
-            //$result = mysqli_query($conn,$sql);
-            //$total = mysqli_num_rows($result);
-            $result = DbHelp::query($sql,$conn);
-            $total = DbHelp::countRow($result);
-            $total_page = ($total / 10);
-            require('connection_close.php');
-            return $total_page;
-        }
-        public static function getAll($start,$perpage)
-        {
-            require('connection_connect.php');
+            $con = conDb::getInstance();
             $sql = "SELECT disease.diseaseID,disease.name,GROUP_CONCAT(pathogen.pathogenID) AS pathogenID,GROUP_CONCAT(pathogen.commonName) AS commonName FROM diseasepathogen
                     RIGHT JOIN disease ON disease.diseaseID = diseasepathogen.diseaseID
                     INNER JOIN pathogen ON pathogen.pathogenID = diseasepathogen.pathogenID 
                     GROUP BY disease.diseaseID,disease.name
-                    ORDER BY disease.name,pathogen.commonName LIMIT $start,$perpage";
-            $result = DbHelp::query($sql,$conn);
-            while($row = DbHelp::fetch($result))
+                    ORDER BY disease.name,pathogen.commonName";
+            $stmt = $con->query($sql);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach($result as $key=>$row)
             {
                 $diseaseID = $row['diseaseID'];
                 $name = $row['name'];
@@ -43,36 +30,32 @@
                 $commonName = $row['commonName'];
                 $dpList[] = new Dp($diseaseID,$name,$pathogenID,$commonName);
             }
-            require('connection_close.php');
+           
             return $dpList;
         }
         public static function insert($diseaseID,$pathogenID)
         {
-            require('connection_connect.php');
-            $sql = "INSERT INTO `diseasepathogen`(`diseaseID`, `pathogenID`) VALUES($diseaseID,$pathogenID)";
-            //$result = mysqli_query($conn,$sql);
-            $result = DbHelp::query($sql,$conn);
-            echo $sql;
-            require('connection_close.php');
-            return $result;
+            $con = conDb::getInstance();
+            $sql = "INSERT INTO `diseasepathogen`(`diseaseID`, `pathogenID`) VALUES(?,?)";
+            $stmt = $con->prepare($sql);
+            $check = $stmt->execute([$diseaseID,$pathogenID]);   
+            return $check;
         }
         public static function update($diseaseID,$pathogenID)
         {
-            require('connection_connect.php');
-            $sql = "UPDATE diseasepathogen SET diseaseID = $diseaseID,pathogenID = $pathogenID";
-            //$result = mysqli_query($conn,$sql);
-            $result = DbHelp::query($sql,$conn);
-            require('connection_close.php');
-            return $result;
+            $con = conDb::getInstance();
+            $sql = "UPDATE diseasepathogen SET diseaseID = ?,pathogenID = ?";
+            $stmt = $con->prepare($sql);
+            $check = $stmt->execute([$diseaseID,$pathogenID]);   
+            return $check;
         }
         public static function delete($diseaseID,$pathogenID)
         {
-            require('connection_connect.php');
-            $sql = "DELETE FROM diseasepathogen WHERE diseaseID = $diseaseID AND pathogenID = $pathogenID";
-            //$result = mysqli_query($conn,$sql);
-            $result = DbHelp::query($sql,$conn);
-            require('connection_close.php');
-            return $result;
+            $con = conDb::getInstance();
+            $sql = "DELETE FROM diseasepathogen WHERE diseaseID = ? AND pathogenID = ?";
+            $stmt = $con->prepare($sql);
+            $check = $stmt->execute([$diseaseID,$pathogenID]);   
+            return $check;
         }
     }
 ?>

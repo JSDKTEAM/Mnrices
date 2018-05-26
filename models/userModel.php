@@ -1,4 +1,5 @@
 <?php
+require_once("connection_connect.php");
     class User{
         public $userName;
         public $password;
@@ -41,13 +42,14 @@
         }
         public static function getAllUser()
         {
-            require('connection_connect.php');
+            $con = conDb::getInstance();
             $sql ="SELECT * FROM users 
                     LEFT JOIN department ON department.depID = users.depID";
-            $result = DbHelp::query($sql,$conn);
-            if(DbHelp::countRow($result) > 0)
+           $stmt = $con->query($sql);
+           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($stmt->rowCount() > 0)
             {
-                while($row = DbHelp::fetch($result))
+                foreach($result as $key=>$row)
                 {
                     $userName = $row['userName'];
                     $firstName = $row['firstName'];
@@ -69,14 +71,13 @@
                     $depName = $row['depName'];
                     $userList[] = new User($userName,$password,$firstName,$lastname,$phone,$email,$statusUser,$request,$dateRegis,$typeMember,$typeResearcher,$typeResearcherIP,$typeStaff,$typeExpert,$typeAdmin,$depID,$depName,$depName_user);
                 }
-                require('connection_close.php');
                 return $userList;
             }
-            require('connection_close.php');
+        
         }
         public static function addUser($userName,$password,$firstName,$lastname,$phone,$email,$userWMLabel,$depID)        
         {
-            require('connection_connect');
+            $con = conDb::getInstance();
             $password = mysqli_real_escape_string($con,md5(md5(md5($password))));
             $result = 0;
             $sql = "INSERT INTO users 
@@ -98,12 +99,12 @@
             } else {
                 $result = 0;
             }
-            require('connection_close');
+            
             return $result;
         }
         public static function addUserByAdmin($userName,$password,$firstName,$lastname,$phone,$email,$statusUser,$dep)
         {
-            require('connection_connect.php');
+            $con = conDb::getInstance();
             $typeStaff = 0;
             $typeExpert = 0;
             $typeAdmin = 0;
@@ -135,10 +136,11 @@
                 }
             }
             $sql = "SELECT * FROM department WHERE depName = '$dep'";
-            $result = DbHelp::query($sql,$conn);
-            if($result)
+            $stmt = $con->query($sql);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($stmt->rowCount() > 0)
             {
-                while($row = DbHelp::fetch($result))
+                foreach($result as $key=>$row)
                 {
                     $dep = $row['depID'];
                 }
@@ -150,9 +152,7 @@
                 $sql ="INSERT INTO users(userName,passwordUser,firstname,lastname,phone,email,typeResearcher,typeResearcherIP,typeStaff,typeExpert,typeAdmin,depName_user,statusUser) 
                 VALUES('$userName','$strPassword','$firstName','$lastname','$phone','$email',$typeResearcher,$typeResearcherIP,$typeStaff,$typeExpert,$typeAdmin,'$dep',1)";
             }
-            echo $sql;
-            $result = DbHelp::query($sql,$conn);
-            require('connection_close.php');
+            $stmt = $con->query($sql);
         }
     }
 ?>

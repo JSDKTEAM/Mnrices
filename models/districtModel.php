@@ -1,4 +1,5 @@
 <?php
+require_once("connection_connect.php");
 class District{
     public $districtID;
     public $districtName;
@@ -14,54 +15,57 @@ class District{
   
    public static function get($districtID)
     {
-        require("connection_connect.php");
+        $con = conDb::getInstance();
         $sql = "select * from district where districtID = '$districtID' ";
-        $result = DbHelp::query($sql,$conn);
-        $my_row = DbHelp::fetch($result);
+        $stmt = $con->query($sql);
+        $my_row = $stmt->fetch();
         $districtID= $my_row['districtID'];
         $districtName = $my_row['districtName'];
         $provinceID = $my_row['provinceID'];
-        require("connection_close.php");
-    return new District($districtID,$districtName,$provinceID);
+        
+        return new District($districtID,$districtName,$provinceID);
     }
     public static function getAll()
     {
-        require("connection_connect.php");
+        $con = conDb::getInstance();
         $sql = "select * from district left join province on province.provinceID = district.provinceID ORDER BY provinceName";
-        $result = DbHelp::query($sql,$conn);
-        while($my_row = DbHelp::fetch($result))
+        $stmt = $con->query($sql);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       foreach($result as $key=>$my_row)
         {
-        $districtID= $my_row['districtID'];
-        $districtName = $my_row['districtName'];
-        $provinceID = $my_row['provinceID'];
-        $provinceName = $my_row['provinceName'];
-        $district_List[] = new District($districtID,$districtName,$provinceID,$provinceName);
+            $districtID= $my_row['districtID'];
+            $districtName = $my_row['districtName'];
+            $provinceID = $my_row['provinceID'];
+            $provinceName = $my_row['provinceName'];
+            $district_List[] = new District($districtID,$districtName,$provinceID,$provinceName);
         }
-        require("connection_close.php");
+       
         return $district_List;
     }
    
     public static function insert($provinceID,$districtName)
     {
-        require("connection_connect.php");
-        $sql = "INSERT INTO district (districtID,districtName,provinceID)VALUES ('','$districtName','$provinceID')";
-        $result = DbHelp::query($sql,$conn);
-        require("connection_close.php");
+        $con = conDb::getInstance();
+        $sql = "INSERT INTO district (districtName,provinceID)VALUES (?,?)";
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute([$districtName,$provinceID]);    
+       return $check;
     }
     public static function update($districtID,$provinceID,$districtName)
     { 
-        require("connection_connect.php");
-        $sql = "UPDATE district SET districtName = '$districtName',provinceID = '$provinceID' WHERE districtID = '$districtID' ";
-        $result = DbHelp::query($sql,$conn);
-        require("connection_close.php");
-        return $result;
+        $con = conDb::getInstance();
+        $sql = "UPDATE district SET districtName = ?,provinceID = ? WHERE districtID = ? ";
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute([$districtName,$provinceID,$districtID]);    
+        return $check;
     }
     public static function delete ($districtID)
     { 
-        require("connection_connect.php");
-        $sql = "DELETE FROM district WHERE districtID = '$districtID'";
-        $result = DbHelp::query($sql,$conn);
-        require("connection_close.php");
+        $con = conDb::getInstance();
+        $sql = "DELETE FROM district WHERE districtID = ?";
+        $check = $stmt->execute([$districtID]);    
+        return $check;
+        
     }
 }
 ?>

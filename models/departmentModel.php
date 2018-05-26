@@ -1,4 +1,5 @@
 <?php
+require_once("connection_connect.php");
 class Department{
     public $depID;
     public $depName;
@@ -9,58 +10,61 @@ class Department{
     }
     public static function get($depID)
     {
-        require("connection_connect.php");
+        $con = conDb::getInstance();
         $sql = "select * from department where depID = '$depID' ";
-        $result = DbHelp::query($sql,$conn);
-        $my_row = DbHelp::fetch($result);
-        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
-        //$my_row = mysqli_fetch_array($result);
-        $depID= $my_row['depID'];
-        $depName = $my_row['depName'];
-        require("connection_close.php");
-        return new Department($depID,$depName);
+        $stmt = $con->query($sql);
+        $result = $stmt->fetch();
+        if($stmt->rowCount() > 0)
+        {
+            $depID= $my_row['depID'];
+            $depName = $my_row['depName'];
+            return new Department($depID,$depName);
+        }
+        else
+        {
+            return false;
+        }
+       
     }
     public static function getAll()
     {
-        require("connection_connect.php");
+        $con = conDb::getInstance();
         $sql = "select * from department ORDER BY depName";
-        $result = DbHelp::query($sql,$conn);
+        $stmt = $con->query($sql);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
-        while($my_row =  DbHelp::fetch($result))
+        foreach($result as $key=>$my_row)
         {
             $depID= $my_row['depID'];
             $depName = $my_row['depName'];
             $departmentList[]= new Department($depID,$depName);
         }
-        require("connection_close.php");
+
         return $departmentList;
     }
     public static function insert($depName)
     {
-        require("connection_connect.php");
-        $sql = "INSERT INTO department (depID,depName)VALUES ('','$depName')";
-        $result = DbHelp::query($sql,$conn);
-        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
-        require("connection_close.php");
-        return $result;
+        $con = conDb::getInstance();
+        $sql = 'INSERT INTO department (depID,depName) VALUES (?,?)';
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute(['',$depName]);   
+        return $check;
     }
     public static function update($depID,$depName)
     { 
-        require("connection_connect.php");
-        $sql = "UPDATE department SET depName = '$depName' WHERE depID = '$depID' ";
-        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
-        $result = DbHelp::query($sql,$conn);
-        require("connection_close.php");
-        return $result;
+        $con = conDb::getInstance();
+        $sql = "UPDATE department SET depName = ? WHERE depID = ? ";
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute([$depName,$depID]);   
+        return $check;
     }
     public static function delete ($depID)
     { 
-        require("connection_connect.php");
-        $sql = "DELETE FROM department WHERE depID = '$depID'";
-        //$result=mysqli_query($conn,$sql) or die(mysqli_error($con));
-        $result = DbHelp::query($sql,$conn);
-        return $result;
-        require("connection_close.php");
+        $con = conDb::getInstance();
+        $sql = "DELETE FROM department WHERE depID = ?";
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute([$depID]);   
+        return $check;
     }
 }
 ?>
