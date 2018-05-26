@@ -101,7 +101,6 @@
      ?>
      </tbody>
 </table>
-<?php  include('views/pagination/pagination.php');?>
 <!-- The Modal -->
 <div class="modal fade" id="edit_pathogen_modal">
   <div class="modal-dialog">

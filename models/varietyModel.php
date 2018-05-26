@@ -24,36 +24,37 @@
          $this->notice = $notice;
          $this->recommendArea = $recommendArea;
      }
-     public static function getAll($start,$perpage)
+     public static function getAll()
      { 
-        require('connection_connect.php');
-         $sql = "SELECT * FROM variety LIMIT $start,$perpage";
-         $result = DbHelp::query($sql,$conn);
-         while($row = DbHelp::fetch($result))
-         {
-            $varietyID = $row['varietyID'];
-            $commonName = $row['commonName'];
-            $scientificName = $row['scientificName'];
-            $varietyName = $row['varietyName'];
-            $history = $row['history'];
-            $characteristic = $row['characteristic'];
-            $productRate = $row['productRate'];
-            $feature = $row['feature'];
-            $notice = $row['notice'];
-            $recommendArea = $row['recommendArea'];
-            $varietyList[] = new Variety($varietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
-         }
-         require('connection_close.php');
-         return $varietyList;
+        $con = conDb::getInstance();
+        $sql = "SELECT * FROM variety";
+        $stmt = $con->query($sql);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($result  as $key=>$row)
+        {
+           $varietyID = $row['varietyID'];
+           $commonName = $row['commonName'];
+           $scientificName = $row['scientificName'];
+           $varietyName = $row['varietyName'];
+           $history = $row['history'];
+           $characteristic = $row['characteristic'];
+           $productRate = $row['productRate'];
+           $feature = $row['feature'];
+           $notice = $row['notice'];
+           $recommendArea = $row['recommendArea'];
+           $varietyList[] = new Variety($varietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
+        }
+        
+        return $varietyList;
      }
      public static function get($varietyID)
      {
-        require('connection_connect.php');
+        $con = conDb::getInstance();
         $sql = "SELECT * FROM variety WHERE varietyID = $varietyID";
-        $result = DbHelp::query($sql,$conn);
-        if($result)
+        $stmt = $con->query($sql);
+        $row = $stmt->fetch();
+        if($stmt->rowCount() > 0)
         {
-            $row = DbHelp::fetch($result);
             $varietyID = $row['varietyID'];
             $commonName = $row['commonName'];
             $scientificName = $row['scientificName'];
@@ -65,12 +66,12 @@
             $notice = $row['notice'];
             $recommendArea = $row['recommendArea'];
         }
-        require('connection_close.php');
+  
         return new Variety($varietyID,$commonName,$scientificName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
      }
      public static function insert($commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
      {
-        require('connection_connect.php');
+        $con = conDb::getInstance();
         $sql = "INSERT INTO variety(commonName,
                 scientificName,               
                 varietyName,
@@ -79,34 +80,33 @@
                 productRate,
                 feature,
                 notice,
-                recommendArea) VALUES('$commonName','$scientificName','$varietyName','$history','$characteristic','$productRate','$feature','$notice','$recommendArea')";
-        $result = 0;
-        $result = DbHelp::query($sql,$conn);
-        require('connection_close.php');
-        return $result;
+                recommendArea) 
+                VALUES(?,?,?,?,?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute([$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea]);   
+        return $check;
      }
      public static function update($varietyID,$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea)
      {
-        require('connection_connect.php');
+        $con = conDb::getInstance();
         $sql = "UPDATE variety SET
-                commonName = '$commonName',
-                scientificName = '$scientificName',
-                varietyName = '$varietyName',
-                history = '$history',
-                characteristic = '$characteristic',
-                productRate = '$productRate',
-                feature = '$feature',
-                notice = '$notice',
-                recommendArea = '$recommendArea' WHERE varietyID = $varietyID";
-        $result = 0;
-        $result = DbHelp::query($sql,$conn);
-        require('connection_close.php');
-        return $result;
+                commonName = ?,
+                scientificName = ?,
+                varietyName = ?,
+                history = ?,
+                characteristic = ?,
+                productRate = ?,
+                feature = ?,
+                notice = ?,
+                recommendArea = ? WHERE varietyID = ?";
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute([$commonName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea,$varietyID]);   
+        return $check;
      }
      public static function search_spec($key,$start,$perpage)
      {
-        require('connection_connect.php');
-
+        
+        $con = conDb::getInstance();
         $sql = "SELECT * FROM variety WHERE varietyID LIKE '%$key%' 
         OR commonName LIKE '%$key%' 
         OR scientificName LIKE '%$key%'
@@ -135,7 +135,7 @@
            $recommendArea = $row['recommendArea'];
            $varietyList[] = new Variety($varietyID,$commonName,$scientificName,$scientificName,$varietyName,$history,$characteristic,$productRate,$feature,$notice,$recommendArea);
         }
-        require('connection_close.php');
+        
 
         if(DbHelp::countRow($result) < 1)
         {
@@ -143,44 +143,13 @@
         }
         return $varietyList;
      }
-
-     public static function countRow($key)
-     {
-         require("connection_connect.php");
-         $sql = "SELECT * FROM variety WHERE varietyID LIKE '%$key%' 
-         OR commonName LIKE '%$key%' 
-         OR scientificName LIKE '%$key%'
-         OR varietyName LIKE '%$key%'
-         OR history LIKE '%$key%' 
-         OR characteristic LIKE '%$key%' 
-         OR productRate LIKE '%$key%' 
-         OR feature LIKE '%$key%' 
-         OR notice LIKE '%$key%' 
-         OR recommendArea LIKE '%$key%' ";
-         $result = DbHelp::query($sql,$conn);
-         $total = DbHelp::countRow($result);
-         $total_page = ceil($total / 10);
-         require("connection_close.php");
-         return $total_page;
-     }
-
-     public static function countRowAll()
-     {
-         require("connection_connect.php");
-         $sql = "SELECT * FROM variety ";
-         $result = DbHelp::query($sql,$conn);
-         $total = DbHelp::countRow($result);
-         $total_page = ceil($total / 10);
-         require("connection_close.php");
-         return $total_page;
-     }
      public static function delete($varietyID)
      {
-        require("connection_connect.php");
+        $con = conDb::getInstance();
         $sql = "DELETE FROM variety WHERE varietyID = $varietyID";
-        $result = DbHelp::query($sql,$conn);
-        require("connection_close.php");
-        return $result;
+        $stmt = $con->prepare($sql);
+        $check = $stmt->execute([$varietyID]);   
+        return $check;
      }
 
  } 

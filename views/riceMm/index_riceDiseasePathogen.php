@@ -110,9 +110,10 @@ $('input[list]').change('input', function(e) {
             <?php
                 $i = 0;
                 foreach($dp_list as $dp)
-                {
-                        $disease = Disease::get($dp->diseaseID);
-                        $pathogen = Pathogen::get($dp->pathogenID);
+                {       
+                        
+                        //$disease = Disease::get($dp->diseaseID);
+                        //$pathogen = Pathogen::get($dp->pathogenID);
                         echo "<tr>
                                 <td>$dp->name</td>
                                 <td>$dp->commonName</td>

@@ -167,7 +167,6 @@ if($VarietyList != null)
   <?php  }} ?>
   </tbody>
 </table>
-<?php  include('views/pagination/pagination.php');?>
 
 <div class="modal fade" id="edit_spec_modal">
   <div class="modal-dialog" style="width:980px;">
