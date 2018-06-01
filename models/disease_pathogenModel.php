@@ -17,7 +17,7 @@
             $con = conDb::getInstance();
             $sql = "SELECT disease.diseaseID,disease.name,GROUP_CONCAT(pathogen.pathogenID) AS pathogenID,GROUP_CONCAT(pathogen.commonName) AS commonName FROM diseasepathogen
                     RIGHT JOIN disease ON disease.diseaseID = diseasepathogen.diseaseID
-                    INNER JOIN pathogen ON pathogen.pathogenID = diseasepathogen.pathogenID 
+                    LEFT JOIN pathogen ON pathogen.pathogenID = diseasepathogen.pathogenID 
                     GROUP BY disease.diseaseID,disease.name
                     ORDER BY disease.name,pathogen.commonName";
             $stmt = $con->query($sql);
